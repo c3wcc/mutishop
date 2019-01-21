@@ -112,7 +112,7 @@ return array(
         退货按钮（联系客服）  所有退换货操作， 都需要人工介入   不支持在线退换货
      */
     
-    'DEFAULT_MODULE'        =>  'Home',  // 默认模块
+    'DEFAULT_MODULE'        =>  'Mobile',  // 默认模块
     'DEFAULT_CONTROLLER'    =>  'Index', // 默认控制器名称
     'DEFAULT_ACTION'        =>  'index', // 默认操作名称
 
