@@ -83,21 +83,21 @@
 				</a>
 			</li>		  -->
 			<li>
-				<a href="{:U('Activity/group_list')}">
+				<a href="">
 					<img alt="我的订单" src="__STATIC__/images/1440439318451279676.png" />
-					<span>团购</span>
+					<span>美食</span>
 				</a>
 			</li>
 			<li>
-				<a href="{:U('User/order_list')}">
+				<a href="">
 					<img alt="积分商城" src="__STATIC__/images/1440439335793850371.png">
-					<span>我的订单</span>
+					<span>游玩</span>
 				</a>
 			</li>
 			<li>
-				<a href="{:U('Cart/cart')}">
+				<a href="">
 					<img alt="购物车" src="__STATIC__/images/1440439353048484531.png" />
-					<span>购物车</span>
+					<span>婚庆</span>
 				</a>
 			</li>
 			<li>
@@ -109,350 +109,12 @@
 		</ul>
 	</nav>
 </div>
- 
-<div class="floor_images">
-	  <dl>
-	    <dt>
-	      <adv  limit="1" item="v" pid="300">        
-            <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> >
-                <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" border="0">
-            </a> 
-		  </adv>              
-        </dt>    
-        <dd> 
-            <span class="Edge">
-		      <adv  limit="1" item="v" pid="301">            
-                <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> >
-                    <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" border="0">
-                </a>
-               </adv>
-            </span> 
-            <span>
-		      <adv  limit="1" item="v" pid="302">
-                <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> >
-                    <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" border="0">
-                </a>
-               </adv>           
-            </span> 
-        </dd>
-	  </dl>
-	  <ul>
-	    <li class="brom">
-		      <adv  limit="1" item="v" pid="303">
-                <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> >
-                    <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" border="0">
-                </a>
-               </adv>        
-        </li>
-	    <li>
-		      <adv  limit="1" item="v" pid="304">
-                <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> >
-                    <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" border="0">
-                </a>
-               </adv>        
-        </li>
-	  </ul>
-</div>
-<script>
-/* 
-var Tday = new Array();
-var daysms = 24 * 60 * 60 * 1000
-var hoursms = 60 * 60 * 1000
-var Secondms = 60 * 1000
-var microsecond = 1000
-var DifferHour = -1
-var DifferMinute = -1
-var DifferSecond = -1
-function clock(key)
-{
-   var time = new Date()
-   var hour = time.getHours()
-   var minute = time.getMinutes()
-   var second = time.getSeconds()
-   var timevalue = ""+((hour > 12) ? hour-12:hour)
-   timevalue +=((minute < 10) ? ":0":":")+minute
-   timevalue +=((second < 10) ? ":0":":")+second
-   timevalue +=((hour >12 ) ? " PM":" AM")
-   var convertHour = DifferHour
-   var convertMinute = DifferMinute
-   var convertSecond = DifferSecond
-   var Diffms = Tday[key].getTime() - time.getTime()
-   DifferHour = Math.floor(Diffms / daysms)
-   Diffms -= DifferHour * daysms
-   DifferMinute = Math.floor(Diffms / hoursms)
-   Diffms -= DifferMinute * hoursms
-   DifferSecond = Math.floor(Diffms / Secondms)
-   Diffms -= DifferSecond * Secondms
-   var dSecs = Math.floor(Diffms / microsecond)
-  
-   if(convertHour != DifferHour) a=DifferHour+":";
-   if(convertMinute != DifferMinute) b=DifferMinute+":";
-   if(convertSecond != DifferSecond) c=DifferSecond+"分"
-     d=dSecs
-     if (DifferHour>0) {a=a}
-     else {a=''}
-   document.getElementById("jstimerBox"+key).innerHTML = a + b + c ; //显示倒计时信息
-}
-*/
- 
- 
-	// 倒计时
-	function GetRTime2(){
-		//var text = GetRTime('2016/02/27 17:34:00');
-	   <tpshop sql="select * from __PREFIX__goods as g inner join __PREFIX__flash_sale as f on g.goods_id = f.goods_id and g.is_on_sale = 1 and g.goods_state =1 limit 3" key="k" item='v'>
-		var text{$v[goods_id]} = GetRTime('{$v.end_time|date="Y/m/d H:i:s",###}');
-		
-		if (typeof(text{$v[goods_id]}) == "undefined") 
-				$("#surplus_text{$v[goods_id]}").text('活动已结束');
-		else   		
-				$("#surplus_text{$v[goods_id]}").text(text{$v[goods_id]});
-			
-	   </tpshop>
-	}
-	setInterval(GetRTime2,1000);
-</script>
-<section class="index_floor_lou">
-	  <div class="floor_body">
-	    <h2>
-	      <em></em>促销商品
-            <!--<div class="geng"><a href="{:U('Goods/search',array('q'=>'促销'))}">更多</a><span></span></div>-->
-	    </h2>
-	    <div id="scroll_promotion">
-	        <ul>
-	         <tpshop sql="select * from __PREFIX__goods as g inner join __PREFIX__flash_sale as f on g.goods_id = f.goods_id and g.is_on_sale = 1 and g.goods_state =1 limit 3" key="key" item='val'>
-	          <li>
-	            <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$val.goods_name}"></a>
-	            <div class="index_pro">
-		            <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$val[goods_id]))}" title="{$val.goods_name}"> 
-		              <div class="products_kuang">
-		              	<div class="timerBox" id="surplus_text{$val[goods_id]}">0时 00分 00秒</div>
-		                <img src="{$val.goods_id|goods_thum_images=400,400}" onerror="this.src='__STATIC__/images/icon_product_null.png'">
-		              </div>
-		              <div class="goods_name">{$val.goods_name}</div>
-		            </a>
-		              <div class="price">
-                      <a href="javascript:AjaxAddCart({$val[goods_id]},1,0);" class="btns">
-		                  <img src="__STATIC__/images/index_flow.png">
-                      </a>
-		                <span class="price_pro">￥{$val.price}元</span>
-		              </div>
-				</div>
-	          </li>
-	          </tpshop>
-	        </ul>
-	    </div>
-	</div>
-</section>
-  
-<div class="floor_images">
-	  <dl>
-        <dt>
-          <adv  limit="1" item="v" pid="305">
-            <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> >
-                <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" border="0">
-            </a>
-           </adv>        
-        </dt>
-        <dd> 
-        <span class="Edge">
-          <adv  limit="1" item="v" pid="306">
-            <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> >
-                <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" border="0">
-            </a>
-           </adv>        
-        </span> 
-        <span>
-          <adv  limit="1" item="v" pid="307">
-            <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> >
-                <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" border="0">
-            </a>
-           </adv>        
-        </span> 
-        </dd> 
-      </dl>
-	<strong>
-            <adv  limit="1" item="v" pid="308">
-            <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> >
-                <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" border="0">
-            </a>
-           </adv>
-    </strong>
-</div>
- 
-<section class="index_floor">
-  <div class="floor_body1">
-    <h2><em></em>精品推荐
-        <!--<div class="geng"> <a href="{:U('Goods/search',array('q'=>'精品'))}">更多</a> <span></span></div>-->
-    </h2>
-    <div id="scroll_best" class="scroll_hot">
-      <div class="bd">
-        <ul>
-        <assign name="fl" value="1"/>
-         <tpshop sql="select * from __PREFIX__goods where is_recommend=1 and is_on_sale = 1 and goods_state = 1 order by sort desc limit 9" item="v" key="k">
-          <li>
-            <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
-             <div class="index_pro"> 
-	              <div class="products_kuang">
-	                <img src="{$v.goods_id|goods_thum_images=400,400}"></div>
-	              <div class="goods_name">{$v.goods_name}</div>
-	              <div class="price">
-	                 <a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">
-	                    <img src="__STATIC__/images/index_flow.png">
-	                 </a>
-	                 <span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro">￥{$v.shop_price}元</span>
-	              </div>
-              </div>
-            </a>
-           </li>
-           <if condition="($fl++%3 eq 0) && ($fl lt 9)"></ul><ul></if>
-           </tpshop>
-           </ul>
-       </div>
-       <div class="hd">
-          <ul></ul>
-       </div>
-      </div>
-    </div>
-  </section>
-  <script type="text/javascript">
-    TouchSlide({ 
-      slideCell:"#scroll_best",
-      titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
-      effect:"leftLoop", 
-      autoPage:true, //自动分页
-      //switchLoad:"_src" //切换加载，真实图片路径为"_src" 
-    });
-  </script>
-<section class="index_floor">
-  <div class="floor_body1" >
-    <h2>
-      <em></em>
-      新品上市
-        <!--<div class="geng"><a href="{:U('Goods/search',array('q'=>'新品'))}" >更多</a> <span></span></div>-->
-    </h2>
-    <div id="scroll_new" class="scroll_hot">
-      <div class="bd">
-        <ul>
-        <assign name="fl" value="1"/>
-         <tpshop sql="select * from __PREFIX__goods where is_new=1 and is_on_sale = 1 and goods_state = 1 order by sort desc limit 9" item="v" key="k">
-          <li>
-            <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
-             <div class="index_pro"> 
-	              <div class="products_kuang">
-	                <img src="{$v.goods_id|goods_thum_images=400,400}"></div>
-	              <div class="goods_name">{$v.goods_name}</div>
-	              <div class="price">
-	                 <a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">
-	                    <img src="__STATIC__/images/index_flow.png">
-	                 </a>
-	                 <span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro">￥{$v.shop_price}元</span>
-	              </div>
-              </div>
-            </a>
-           </li>
-           <if condition="($fl++%3 eq 0) && ($fl lt 9)"></ul><ul></if>
-           </tpshop></ul>
-        </div>
-        <div class="hd">
-          <ul></ul>
-        </div>
-      </div>
-    </div>
-  </section>
-  <script type="text/javascript">
-    TouchSlide({ 
-      slideCell:"#scroll_new",
-      titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
-      effect:"leftLoop", 
-      autoPage:true, //自动分页
-      //switchLoad:"_src" //切换加载，真实图片路径为"_src" 
-    });
-  </script>
-<section class="index_floor">
-  <div class="floor_body1" >
-    <h2><em></em>热销商品
-        <!--<div class="geng"><a href="{:U('Goods/search',array('q'=>'热销'))}" >更多</a> <span></span></div>-->
-    </h2>
-    <div id="scroll_hot" class="scroll_hot">
-      <div class="bd">
-        <ul>
-        <assign name="fl" value="1"/>
-         <tpshop sql="select * from __PREFIX__goods where is_hot=1 and is_on_sale = 1 and goods_state = 1 order by sort desc limit 9" item="v" key="k">
-          <li>
-            <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
-             <div class="index_pro"> 
-	              <div class="products_kuang">
-	                <img src="{$v.goods_id|goods_thum_images=400,400}"></div>
-	              <div class="goods_name">{$v.goods_name}</div>
-	              <div class="price">
-	                 <a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">
-	                    <img src="__STATIC__/images/index_flow.png">
-	                 </a>
-	                 <span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro">￥{$v.shop_price}元</span>
-	              </div>
-              </div>
-            </a>
-           </li>
-           <if condition="($fl++%3 eq 0) && ($fl lt 9)"></ul><ul></if>
-           </tpshop></ul>
-          </div>
-        <div class="hd">
-          <ul></ul>
-        </div>
-      </div>
-    </div>
-  </section>
-  <script type="text/javascript">
-    TouchSlide({ 
-      slideCell:"#scroll_hot",
-      titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
-      effect:"leftLoop", 
-      autoPage:true, //自动分页
-      //switchLoad:"_src" //切换加载，真实图片路径为"_src" 
-    });
-  </script>
- 
- 
-<!-- <section class="index_floor_lou">
-    <div class="floor_body ">
-        <h2>
-            <em></em><div class="geng"><a href="javascript:void(0);" >更多</a> <span></span></div>
-         </h2>
-        <ul>
-         </ul>
-    </div>
-</section>  -->
- 
-<div id="index_banner" class="index_banner">
-  <div class="hd">
-    <ul>         
-    </ul>
-  </div>
-	<div class="bd">
-		<ul>
-          <adv  pid="309" limit="2" item="v">
-             <li>
-                <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> >
-                <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" width="100%" border="0">
-                </a>
-             </li>
-           </adv>        
-	    </ul>
-	</div>
-</div>
 
-<script type="text/javascript">
-   TouchSlide({ 
-    slideCell:"#index_banner",
-    titCell:".index_banner .hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
-    mainCell:".index_banner .bd ul", 
-    effect:"leftLoop", 
-    autoPage:true,//自动分页
-    autoPlay:true //自动播放
-  });
-</script>
+
+
    
 <script type="text/javascript">
+
 var url = "index.php?m=Mobile&c=Index&a=ajaxGetMore";
 $(function(){
 	//$('#J_ItemList').more({'address': url});
@@ -481,7 +143,7 @@ function getGoodsList(){
 }
 </script> 
 <div class="floor_body2" >
-  <h2>————&nbsp;猜你喜欢&nbsp;————</h2>
+
   <div id="J_ItemList">
     <ul class="product single_item info">
     </ul>
@@ -500,7 +162,6 @@ function goTop(){
 </script>
 <a href="javascript:goTop();" class="gotop"><img src="__STATIC__/images/topup.png"></a> 
 </div>
- 
  
  <div id="search_hide" class="search_hide">
  <h2> <span class="close"><img src="__STATIC__/images/close.png"></span>关键搜索</h2>
