@@ -1,0 +1,84 @@
+<form method="post" enctype="multipart/form-data" target="_blank" id="goods_list_form">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <td style="width: 1px;" class="text-center">                
+                    
+                </td>                
+                <td class="text-right">
+                    <a>ID</a>
+                </td>
+                <td class="text-left">
+                    <a>商品名称</a>
+                </td>
+                <td class="text-left">
+                    <a>货号</a>
+                </td>                                
+                <td class="text-left">
+                    <a>分类</a>
+                </td>                
+                <td class="text-left">
+                    <a>价格</a>
+                </td>
+				
+
+                <td class="text-left">
+                    <a>库存</a>
+                </td>
+                <td class="text-left">
+                    <a>上/下架</a>
+                </td>
+                <td class="text-left">
+                    <a>审核状态</a>
+                </td>              
+                <td class="text-right">操作</td>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="goodsList" id="list">
+                <tr>
+                    <td class="text-center">
+                       <input type="checkbox" name="goods_id[]" value="{$list.goods_id}"/>
+                    </td>
+                    <td class="text-right">{$list.goods_id}</td>
+                    <td class="text-left">{$list.goods_name|getSubstr=0,33}</td>
+                    <td class="text-left">{$list.goods_sn}</td>
+                    <td class="text-left">{$catList[$list[cat_id1]][name]}</td>
+                    <td class="text-left">{$list.shop_price}</td>
+				
+                                                                         
+                    <td class="text-left">{$list.store_count}</td>
+                    <td class="text-left">
+                        <if condition="$list[is_on_sale] eq 0">下架</if>
+                        <if condition="$list[is_on_sale] eq 1">上架</if>
+                    </td>
+                    <td class="text-left">
+                    <if condition="$list[goods_state] eq 0">待审核</if>
+                    <if condition="$list[goods_state] eq 1">审核通过</if>
+                    <if condition="$list[goods_state] eq 2">审核失败</if>
+                    <if condition="$list[goods_state] eq 3">违规下架</if>
+                    </td>
+                    <td class="text-right">
+					<a href="{:U('Goods/examine',array('id'=>$list['goods_id'] ,'goods_state'=> 1  ))}" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="通过审核">通过审核</a>
+                        <a href="{:U('Goods/examine',array('id'=>$list['goods_id'] ,'goods_state'=> 2  ))}" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="拒绝通过"></i>拒绝通过</a>
+                        <a href="javascript:void(0);" onclick="del('{$list[goods_id]}')" id="button-delete6" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="删除"></i>删除</a>
+                       
+                        <a class="btn btn-primary" href="{:U('Home/Goods/goodsInfo',array('id'=>$list['goods_id']))}">查看商品</a>
+                        
+                        
+                   </td>   
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+    </div>
+</form>
+
+<script>
+    // 点击分页触发的事件
+    $(".pagination  a").click(function(){
+        cur_page = $(this).data('p');
+        ajax_get_table('search-form2',cur_page);
+    });
+</script>

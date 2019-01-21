@@ -1,0 +1,1 @@
+<div class="footer"> &copy; 2015-2016 <a href="http://www.tp-shop.cn" target="_blank">www.tp-shop.cn</a> 广州琅百广告出品</div>

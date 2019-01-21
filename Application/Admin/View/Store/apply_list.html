@@ -1,0 +1,123 @@
+<include file="Public/min-header" />
+<div class="wrapper">
+	<include file="Public/breadcrumb" />
+	<section class="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box">
+					<div class="box-header">
+						<nav class="navbar navbar-default">
+							<div class="collapse navbar-collapse">
+								<div class="navbar-form form-inline">
+									<div class="form-group">
+										<p class="text-success margin blod">
+											<h3>开店申请列表</h3>
+										</p>
+									</div>
+								</div>
+							</div>
+						</nav>
+
+					</div>
+					<div class="box-body">
+						<div class="row">
+							<div class="col-sm-12">
+								<table id="list-table" class="table table-bordered table-striped dataTable">
+									<thead>
+										<tr role="row">
+											<th>店铺名称</th>
+											<th>卖家登录账号</th>
+											<th>店主卖家昵称</th>
+											<th>店铺类型</th>
+											<th>联系人</th>
+											<th>联系电话</th>
+											<th>联系邮箱</th>
+											<th>申请时间</th>
+											<th>状态</th>
+											<th>审核操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<!-- 这里是改过    2018   5     17    -->
+										<foreach name="list" item="vo" key="k">
+											<tr role="row">
+												<td>{$vo.store_name}</td>
+												<td>{$vo.seller_name}</td>
+												<td>{$vo.nick_name}</td>
+												<th>
+													<if condition="$vo[store_type] eq 1">旗舰店</if>
+													<if condition="$vo[store_type] eq 2">专卖店</if>
+													<if condition="$vo[store_type] eq 3">专营店</if>
+												</th>
+												<td>{$vo.contacts_name}</td>
+												<td>{$vo.contacts_mobile}</td>
+												<td>{$vo.contacts_email}</td>
+												<td>{$vo.add_time|date='Y-m-d',###}</td>
+												<td>
+													<if condition="$vo[apply_state] eq 0">新申请
+														<elseif condition="$vo[apply_state] eq 2" />未通过
+														<else/>开店成功</if>
+												</td>
+
+												<td>
+													<if condition="$vo[apply_state] eq 0">
+														<a class="btn btn-primary" href="{:U('Store/apply_info',array('id'=>$vo['id']))}">开始审核</a>
+														<elseif condition="$vo[apply_state] eq 2" />未通过
+														<else/>开店成功</if>
+												</td>
+
+												<!--
+												<td>
+													<if condition="$vo[status] eq 0">
+														<img width="20" height="20" src="__PUBLIC__/images/yes.png" onclick="change('{$vo.id}',1)" />
+
+														<img width="20" height="20" src="__PUBLIC__/images/cancel.png" onclick="change('{$vo.id}',2)" />
+													</if>
+													<a class="btn btn-danger" href="{:U('Store/apply_del',array('del_id'=>$vo['id']))}">
+														<i class="fa fa-trash-o"></i>
+													</a>
+												</td> -->
+
+
+											</tr>
+										</foreach>
+									</tbody>
+									<tfoot>
+
+									</tfoot>
+								</table>
+							</div>
+						</div>
+						<div class="row">
+							<!-- <div class="col-sm-6 text-left">
+								<button class="btn btn-default btn-sm checkbox-toggle">
+									<i class="fa fa-square-o"></i>
+								</button>
+							</div> -->
+							<div class="col-sm-6 text-right">{$page}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script>
+
+		//修改指定表的指定字段值 给商家使用的函数
+
+
+		// function change(id, status) {
+
+		// 	$.ajax({
+		// 		url: "/index.php?m=Admin&c=Store&a=change&id=" + id + "&status=" + status,
+		// 		success: function (data) {
+		// 			window.location.href = "/index.php?m=Admin&c=Store&a=apply_list";
+		// 		}
+		// 	});
+		// }
+
+	</script>
+</div>
+</body>
+
+</html>

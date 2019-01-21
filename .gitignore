@@ -1,0 +1,16 @@
+/Public/upload/*
+/Public/head/*
+/Public/school/*
+/Application/Runtime
+.idea
+/backup
+/upload
+/qrcode
+/*.txt
+/Application/Common/Conf/db.php
+/Application/WXAPI/Conf/db.php
+Application/WXAPI/Conf/db.php
+.vscode
+/plugins/payment/weixin/logs
+.user.ini
+/ueditor/php/upload/image/*
