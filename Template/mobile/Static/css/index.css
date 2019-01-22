@@ -2,13 +2,23 @@
 
 
 /*头部样式*/
-.header, #header { background-color:#1f1f1f; width: 100%; height:45px; overflow: hidden; text-align: center; position:relative }
+.header, #header { background-color:#FFFFFF; width: 100%; height:45px; overflow: hidden; text-align: center; position:relative }
 .logo { display: block; color:#fff; width: 100%; text-align: center; height:45px; font-size:18px; line-height:45px;}
 .logo img{ display:block; height:45px; margin:auto}
 
 .city {height:44px; line-height:44px; position:absolute; top: 0px; left:5px; background:url(../images/arrow_down.png) no-repeat right center; background-size:20px 20px; padding-right:20px; }
 a.city{color:#f5f5f5; font-size:14px;}
-.user_btn { width:45px; height:45px; display: block; float:right; position: absolute; top:0px; right:5px; background-position:0 -38px}
+
+.user_btn { 
+	width:45px; 
+	height:45px; 
+	display: block; 
+	float:right; 
+	position: absolute; 
+	top:0px; 
+	right:5px; 
+	background-position:0 -38px
+}
 
 input[type="submit"],
 input[type="reset"],
@@ -16,7 +26,32 @@ input[type="button"],
 button {
 -webkit-appearance: none;
 }
-.top_bt { display:block; float:left; width:45px; height:45px; position:absolute; top: 3px; left:5px;background-position:0 5}
+
+.top_bt { 
+	display:block; 
+	float:left; 
+	width:45px; 
+	height:45px;
+	 position:absolute; 
+	 top: 3px;
+	 left:5px;
+	 background-position:0 5
+	
+}
+
+.top_menu { 
+	color: #E4010D;
+	display:block; 
+	float:right; 
+	width:45px; 
+	height:45px;
+	 position:absolute; 
+	 top: 3px;
+	 right:5px;
+	 /* background-position:0 5 */
+	 background-image: url(../img/menu.png) no-repeat;
+}
+
 /*首页搜索*/
 .index_search{ position: relative; width:100%; background: #fff; overflow:hidden}
 .index_search_mid{ width:80%; margin:auto; height:40px; position:relative;}
