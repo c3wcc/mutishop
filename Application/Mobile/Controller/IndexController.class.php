@@ -23,6 +23,10 @@ class IndexController extends MobileBaseController {
         $this->assign('hot_goods',$hot_goods);
         $favourite_goods = M('goods')->where("is_recommend=1 and is_on_sale=1 and deleted = 0")->order('goods_id DESC')->limit(20)->cache(true,TPSHOP_CACHE_TIME)->select();//首页推荐商品
         $this->assign('favourite_goods',$favourite_goods);
+
+        $banner = M('ad')->where(['pid'=>2])->select();
+        $this->assign('banner',$banner);
+
         $this->display();
     }
 
