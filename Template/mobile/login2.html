@@ -30,13 +30,9 @@
     color: white;
   }
   .circle{
-      position: absolute;
-      top: 50%;
-      left:50%; 
-      margin-left:-50px; 
-     /* margin-top: -75px;*/
     height: 100px;
     width: 100px;
+    /*background-color:black;*/ 
   }
   .span-line{
     line-height:100px; 
@@ -51,7 +47,24 @@
   .login-color{
      color: #D44E1B; 
   }
+  .form-center{
+     position: absolute;
+       left: 50%;
+       margin-left: -110px;         
+       top:50%;
+  }
+  .radius{
+    border-top-right-radius: 30px; 
+    border-top-left-radius: 30px; 
+    border-bottom-right-radius:30px;
+    border-bottom-left-radius:30px;
+  }
+  .input-margin{
+    margin-bottom: 20px;
+  }
+  .btn1{
 
+  }
 </style>
 <body>
 
@@ -64,9 +77,19 @@
 <h4 class="text-center text-white">
   新生代社交商城
 </h4>
+<div class="form-center">
+  <form action="">
+    <div class="input-margin">
+      <input type="text" class="radius" placeholder="&nbsp;&nbsp;&nbsp;请输入手机号码" id="usr" name="username">
+    </div>
 
-<div class="circle rounded-circle border text-center text-white ">
-   <span class="span-line">注册账号</span>
+    <div class="input-margin">
+      <input type="text" class="radius" placeholder="&nbsp;&nbsp;&nbsp;密码" id="password" name="password">
+    </div>
+    <div class="btn1">
+    <button type="submit" class="btn btn-primary btn-center radius col-sm-12">Submit</button>
+    </div>
+  </form>
 </div>
 <div class="text-white footer">点击注册默认您同意<a href="#" class="login-color">《探店注册协议》</a></div>
 </body>
