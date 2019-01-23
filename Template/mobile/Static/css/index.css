@@ -168,9 +168,15 @@ html.mm-opening .mm-page, html.mm-opening #mm-blocker, html.mm-opening .mm-fixed
 /*首页八个小图标*/
 .entry-list { width:100%; overflow:hidden; padding-top:10px; background:#FFF; padding-bottom:10px;}
 .entry-list ul{ width:100%; overflow:hidden; margin:auto}
-.entry-list a{ display:block; width: 25%; overflow: hidden; float:left;text-align: center; margin-top:5px;}
-.entry-list a span { height:30px; line-height:30px; color: #616161; font-family: "微软雅黑"; font-size: 14px; }
-.entry-list a img { display:block; width:65%; margin:auto; }
+.entry-list a{ display:block; width: 33.3333%; 
+	overflow: hidden; float:left;
+	text-align: center; 
+	margin-top:5px;
+
+
+}
+.entry-list a span { height:20px; line-height:20px; color: #616161; font-family: "微软雅黑"; font-size: 14px; }
+.entry-list a img { display:block; width:45%; margin:auto; }
 
 
 /* 首页页 广告位 */
@@ -271,5 +277,11 @@ box-shadow: 0 0 1px #ccc; text-indent:-100px; overflow:hidden; }
 .floor_body2 ul li .goods_name { width:93%; margin:auto;text-align:left;height: 33px; overflow: hidden; color:#666; font-size:14px;line-height: 18px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;display: -webkit-box; margin-top:8px; margin-bottom:8px;}
 .floor_body2 ul li .price {width:100%; margin:auto; position:relative; border-top:1px solid #eeeeee }
 .floor_body2 ul li .price .price_pro{  width:93%; margin:auto;  display: block;font-size:16px; color: #F23015; height:40px; line-height:40px;text-align:left;}
+/* 首页原价 */
+.floor_body2 ul li .price .price_pro1{  width:93%; margin:auto;  display: block;font-size:12px; color: #333; 
+	height:18px; line-height:18px;text-align:left;
+	text-decoration:line-through
+}
+
 .floor_body2 ul li .btns{ position:absolute; display:block;right:5px;height:25px;width:25px;background: #f23; border-radius:50%; bottom:8px;}
 .floor_body2 ul li .btns img{ display:block; width:25px;height:25px; }

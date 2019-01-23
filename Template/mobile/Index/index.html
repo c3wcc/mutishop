@@ -18,12 +18,9 @@
 	<script type="text/javascript" src="__STATIC__/js/layer.js"></script>
 	<script src="__PUBLIC__/js/global.js"></script>
 	<script src="__PUBLIC__/js/mobile_common.js"></script>
-
 </head>
-
 <body>
 	<div id="page" class="showpage">
-	
 		<div>
 			<header id="header">
 				<!-- <a href="{:U('Goods/categoryList')}" class="user_btn"></a> -->
@@ -55,12 +52,7 @@
 					autoPlay: true //自动播放
 				});
 			</script>
-			<div id="fake-search" class="index_search">
-				<div class="index_search_mid">
-					<span><img src="__STATIC__/images/xin/icosousuo.png"></span>
-					<input type="text" id="search_text" class="search_text" value="请输入您所搜索的商品" />
-				</div>
-			</div>
+
 			<div class="entry-list clearfix">
 				<nav>
 					<ul>
@@ -106,18 +98,15 @@
 								<span>婚庆</span>
 							</a>
 						</li>
-						<li>
+						<!-- <li>
 							<a href="{:U('User/index')}">
 								<img alt="个人中心" src="__STATIC__/images/1440439367001464442.png" />
 								<span>个人中心</span>
 							</a>
-						</li>
+						</li> -->
 					</ul>
 				</nav>
 			</div>
-
-
-
 
 			<script type="text/javascript">
 
@@ -147,6 +136,7 @@
 					});
 				}
 			</script>
+
 			<div class="floor_body2">
 
 				<div id="J_ItemList">
@@ -168,52 +158,8 @@
 			<a href="javascript:goTop();" class="gotop"><img src="__STATIC__/images/topup.png"></a>
 		</div>
 
-		<div id="search_hide" class="search_hide">
-			<h2> <span class="close"><img src="__STATIC__/images/close.png"></span>关键搜索</h2>
-			<div id="mallSearch" class="search_mid">
-				<div id="search_tips" style="display:none;"></div>
-				<ul class="search-type">
-					<li class="cur" num="0">宝贝</li>
-					<li num="1">店铺</li>
-				</ul>
-				<div class="searchdotm">
-					<form class="set_ip" name="sourch_form" id="sourch_form" method="post" action="{:U('Goods/search')}">
-						<div class="mallSearch-input">
-							<div id="s-combobox-135">
-								<input class="s-combobox-input" name="q" id="q" placeholder="请输入关键词" type="text" value="<?php echo I('q'); ?>" />
-							</div>
-							<input type="button" value="" class="button" onclick="if($.trim($('#q').val()) != '') $('#sourch_form').submit();" />
-						</div>
-					</form>
-				</div>
-			</div>
-			<!--
-		<div class="search_body">
-		<div class="search_box">
-		<form action="search.php" method="post" id="searchForm" name="searchForm">
-		<div>
-		<select id='search_type' name="search_type" style="width:15%;">
-			<option value='search'>宝贝</option>
-			<option value='stores'>店铺</option>
-		</select>
-		     <input class="text" type="search" name="keywords" id="keywordBox" autofocus>
-		     <button type="submit" value="搜 索" ></button>
-		</div>
-		</form>
-	    </div>
-		</div>
-       -->
-			<section class="mix_recently_search">
-				<h3>热门搜索</h3>
-				<ul>
-					<foreach name="tpshop_config.hot_keywords" item="wd" key="k">
-						<li><a href="{:U('Goods/search',array('q'=>$wd))}" <if condition="$k eq 0">class="ht"</if>>{$wd}</a></li>
-					</foreach>
-				</ul>
-			</section>
-		</div>
-
 	</div>
+
 	<include file="Public/footer_nav" />
 
 	<script type="text/javascript">
