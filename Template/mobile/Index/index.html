@@ -19,14 +19,15 @@
 	<script src="__PUBLIC__/js/global.js"></script>
 	<script src="__PUBLIC__/js/mobile_common.js"></script>
 </head>
+
 <body>
 	<div id="page" class="showpage">
 		<div>
 			<header id="header">
 				<!-- <a href="{:U('Goods/categoryList')}" class="user_btn"></a> -->
-				<a href="{:U('Cart/cart')}" class='top_menu'></a>
+				<div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more111" class='top_menu'></div>
 				<!-- <span class="logo"></span> -->
-				<img style="height:40px;" src="__PUBLIC__/images/logo.png" />
+				<img style="height:40px;margin-top: 2px;" src="__PUBLIC__/images/logo.png" />
 			</header>
 
 			<div id="scrollimg" class="scrollimg">
@@ -42,6 +43,7 @@
 					</ul>
 				</div>
 			</div>
+			
 			<script type="text/javascript">
 				TouchSlide({
 					slideCell: "#scrollimg",
@@ -51,6 +53,30 @@
 					autoPage: true,//自动分页
 					autoPlay: true //自动播放
 				});
+			</script>
+
+			<div class="goods_nav hid" id="menu">
+				<ul>
+					<li><a href="{:U('Home/Index/index')}"><span class="menu1"></span><i>首页</i></a></li>
+					<li><a href="{:U('Goods/categoryList')}"><span class="menu2"></span><i>分类</i></a></li>
+					<li><a href="{:U('Cart/cart')}"><span class="menu3"></span><i>购物车</i></a></li>
+					<li style=" border:0;"><a href="{:U('User/index')}"><span class="menu4"></span><i>我的</i></a></li>
+				</ul>
+			</div>
+
+			<script>
+				function show_menu() {
+					var bd_top = $(document).scrollTop();
+					if ($('#menu').css('display') == 'none') {
+						$('#menu').removeClass('hid');
+						$('#menu').addClass('show');
+						
+					} else {
+						$('#menu').removeClass('show');
+						$('#menu').addClass('hid');
+						
+					}
+				}
 			</script>
 
 			<div class="entry-list clearfix">
