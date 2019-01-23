@@ -40,16 +40,16 @@ button {
 }
 
 .top_menu { 
-	color: #E4010D;
 	display:block; 
 	float:right; 
-	width:30px; 
-	height:30px;
-	 position:absolute; 
-	 top: 10px;
-	 right:5px;
-	 /* background-position:0 5 */
-	 background: url(../img/menu.png) no-repeat;
+	width:35px; 
+	height:35px;
+	position:absolute; 
+	top: 5px;
+	right:8px;
+	/* background-position:0 5 */
+	background: url(../img/menu.png) no-repeat;
+	background-size:35px;
 }
 
 /*首页搜索*/
