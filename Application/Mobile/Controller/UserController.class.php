@@ -122,6 +122,22 @@ class UserController extends MobileBaseController
         if ($this->user_id > 0) {
             header("Location: " . U('Mobile/User/index'));
         }
+
+        //微信浏览器，自动登录
+        if(strstr($_SERVER['HTTP_USER_AGENT'],'MicroMessenger') ){
+
+            $token = I('token');
+            if($token){
+                dump($token);
+                exit;
+            }
+
+            $redirect_uri = SITE_URL.'/mobile/user/login';
+            $account_url = "https://account.c3w.cc/?redirect_uri=".$redirect_uri;
+            header("Location:".$account_url);
+            exit;
+        }
+
         $referurl = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : U("Mobile/User/index");
         $this->assign('referurl', $referurl);
         $this->display();
