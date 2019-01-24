@@ -59,7 +59,7 @@
         <input type="password" name="password" class="form-control" id="password" placeholder="密码" />
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback">
+      <!-- <div class="form-group has-feedback">
         <opinioncontrol realtime="true" opinion_name="vertify_code" default="true">
           <div class="row" style="padding-right: 65px;">
             <div class="col-xs-8">
@@ -70,7 +70,7 @@
             </div>
           </div>
         </opinioncontrol>
-      </div>
+      </div> -->
       <!-- 
           <div class="row">
             <div class="col-xs-8">
@@ -144,31 +144,34 @@
         //layer.alert('用户名或密码不能为空', { icon: 2 }); //alert('用户名或密码不能为空');
         return;
       }
-      if (vertify == '') {
-        layer.open({
-          title: '登录提醒',
-          content: '验证码不能为空',
-          time: 1000
-        });
-        //layer.alert('验证码不能为空', { icon: 2 });
-        return;
-      }
-      if (vertify.length != 4) {
-        layer.open({
-          title: '登录提醒',
-          content: '验证码错误',
-          time: 1000
-        });
-        //layer.alert('验证码错误', { icon: 2 });
-        //fleshVerify();
-        return;
-      }
+      // if (vertify == '') {
+      //   layer.open({
+      //     title: '登录提醒',
+      //     content: '验证码不能为空',
+      //     time: 1000
+      //   });
+      //   //layer.alert('验证码不能为空', { icon: 2 });
+      //   return;
+      // }
+
+
+      // if (vertify.length != 4) {
+      //   layer.open({
+      //     title: '登录提醒',
+      //     content: '验证码错误',
+      //     time: 1000
+      //   });
+      //   //layer.alert('验证码错误', { icon: 2 });
+      //   //fleshVerify();
+      //   return;
+      // }
 
       $.ajax({
         url: '/index.php?m=Seller&c=Admin&a=login&t=' + Math.random(),
         type: 'post',
         dataType: 'json',
-        data: { username: username, password: password, vertify: vertify },
+        //data: { username: username, password: password, vertify: vertify },
+        data: { username: username, password: password},
         success: function (res) {
           if (res.status == 1) {
             top.location.href = res.url;

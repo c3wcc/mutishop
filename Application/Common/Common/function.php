@@ -77,7 +77,8 @@ function convert_arr_key($arr, $key_name)
 }
 
 function encrypt($str){
-	return md5(C("AUTH_CODE").$str);
+    // C("AUTH_CODE").
+	return md5($str);
 }
             
 /**

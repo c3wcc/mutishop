@@ -119,10 +119,10 @@ class AdminController extends BaseController
         }
 
         if (IS_POST) {
-            $verify = new Verify();
-            if (!$verify->check(I('post.vertify'), 'seller_login')) {
-                exit(json_encode(array('status' => 0, 'msg' => '验证码错误')));
-            }
+            // $verify = new Verify();
+            // if (!$verify->check(I('post.vertify'), 'seller_login')) {
+            //     exit(json_encode(array('status' => 0, 'msg' => '验证码错误')));
+            // }
             $seller_name = I('post.username');
             $password = I('post.password');
             if (!empty($seller_name) && !empty($password)) {
