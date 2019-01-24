@@ -125,35 +125,38 @@ class AdminController extends BaseController
             // }
             $seller_name = I('post.username');
             $password = I('post.password');
+
             if (!empty($seller_name) && !empty($password)) {
-                $seller = M('seller')->where(array('seller_name' => $seller_name))->find();
-                if ($seller) {
-                    $user = M('users')->where('user_id='.$seller['user_id']." and password='".encrypt($password)."'")->find();
-                    if ($user) {
-                        if (0 == $seller['is_admin'] && 1 == $seller['enabled']) {
-                            exit(json_encode(array('status' => 0, 'msg' => '该账户还没启用激活')));
-                        }
-                        if ($seller['group_id'] > 0) {
-                            $group = M('seller_group')->where(array('group_id' => $seller['group_id']))->find();
-                            $seller['act_limits'] = $group['act_limits'];
-                            $seller['smt_limits'] = $group['smt_limits'];
-                        }
-                        session('seller', $seller);
-                        session('seller_id', $seller['seller_id']);
-                        session('store_id', $seller['store_id']);
-                        M('seller')->where(array('seller_id' => $seller['seller_id']))->save(array('last_login_time' => time()));
-                        sellerLog('商家管理中心登录', __ACTION__);
-                        $url = session('from_url') ? session('from_url') : U('Seller/Index/index');
-                        exit(json_encode(array('status' => 1, 'url' => $url)));
-                    } else {
-                        exit(json_encode(array('status' => 0, 'msg' => '账号密码不正确')));
-                    }
-                } else {
-                    exit(json_encode(array('status' => 0, 'msg' => '账号不存在')));
-                }
-            } else {
                 exit(json_encode(array('status' => 0, 'msg' => '请填写账号密码')));
             }
+
+            $seller = M('seller')->where(array('seller_name' => $seller_name))->find();
+                
+            if(!$seller){
+                exit(json_encode(array('status' => 0, 'msg' => '账号不存在')));
+            }
+
+            $user = M('users')->where('user_id='.$seller['user_id']." and password='".encrypt($password)."'")->find();
+            if(!$user){
+                exit(json_encode(array('status' => 0, 'msg' => '密码不正确')));
+            }
+
+            if (0 == $seller['is_admin'] && 1 == $seller['enabled']) {
+                exit(json_encode(array('status' => 0, 'msg' => '该账户还没启用激活')));
+            }
+            if ($seller['group_id'] > 0) {
+                $group = M('seller_group')->where(array('group_id' => $seller['group_id']))->find();
+                $seller['act_limits'] = $group['act_limits'];
+                $seller['smt_limits'] = $group['smt_limits'];
+            }
+            session('seller', $seller);
+            session('seller_id', $seller['seller_id']);
+            session('store_id', $seller['store_id']);
+            M('seller')->where(array('seller_id' => $seller['seller_id']))->save(array('last_login_time' => time()));
+            sellerLog('商家管理中心登录', __ACTION__);
+            $url = session('from_url') ? session('from_url') : U('Seller/Index/index');
+            exit(json_encode(array('status' => 1, 'url' => $url)));
+        
         }
         $this->display();
     }
