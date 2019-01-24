@@ -126,7 +126,7 @@ class AdminController extends BaseController
             $seller_name = I('post.username');
             $password = I('post.password');
 
-            if (!empty($seller_name) && !empty($password)) {
+            if (empty($seller_name) && empty($password)) {
                 exit(json_encode(array('status' => 0, 'msg' => '请填写账号密码')));
             }
 
