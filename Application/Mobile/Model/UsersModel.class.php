@@ -20,11 +20,11 @@ class UsersModel extends Model{
         if($user){
             //更新信息
             if($user['nickname'] != $data['nickname']){
-                M('users')->where(["user_id"=>$data['user_id']])->update(['nickname' => $data['nickname']]);
+                M('users')->where(["user_id"=>$data['user_id']])->save(['nickname' => $data['nickname']]);
             }
 
             if($user['head_pic'] != $data['head_pic']){
-                M('users')->where(["user_id"=>$data['user_id']])->update(['head_pic' => $data['head_pic']]);
+                M('users')->where(["user_id"=>$data['user_id']])->save(['head_pic' => $data['head_pic']]);
             }
 
             return false;
