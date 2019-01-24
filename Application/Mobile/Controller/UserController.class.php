@@ -169,7 +169,7 @@ class UserController extends MobileBaseController
             session('user', $user);
             
             $UsersModel = new UsersModel();
-            $UsersModel->register($data);
+            $UsersModel->register($user);
             //有没有上一步地址
            
             $this->redirect("Mobile/User/index");

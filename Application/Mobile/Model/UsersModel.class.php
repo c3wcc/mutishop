@@ -9,6 +9,10 @@ class UsersModel extends Model{
     
     public function register($data)
     {
+        if(!$data['user_id']){
+            $this->error('注册出错');
+        }
+
         $user = M('users')->where(["user_id"=>$data['user_id'] ])->find();
         if($user){
             return false;
