@@ -8,6 +8,8 @@ use Mobile\Logic\OrderGoodsLogic;
 use Think\Page;
 use Think\Verify;
 
+use Mobile\Model\UsersModel;
+
 class UserController extends MobileBaseController
 {
 
@@ -123,12 +125,14 @@ class UserController extends MobileBaseController
             header("Location: " . U('Mobile/User/index'));
         }
 
+      
+
         //微信浏览器，自动登录
         if(strstr($_SERVER['HTTP_USER_AGENT'],'MicroMessenger') ){
 
             $token = I('token');
             if($token){
-                dump($token);
+                $this->check($token,$referurl);
                 exit;
             }
 
@@ -138,11 +142,45 @@ class UserController extends MobileBaseController
             exit;
         }
 
-        $referurl = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : U("Mobile/User/index");
+       
         $this->assign('referurl', $referurl);
         $this->display();
     }
 
+    /**
+     * 微信登录后的 处理
+     */
+    public function check($token){
+    
+        if (!$token) {
+            $this->error("登录出错");
+            exit;
+        }
+
+        //发起请求，获取信息
+        $url = "http://c3w.cc/api/login/token?token=" . $token;
+        $res = httpRequest($url, "GET");
+        $res = json_decode($res, true);
+
+        if ($res['status'] == 1) {
+            //登录成功
+            $user = $res['data'];
+
+            session('user', $user);
+            
+            $UsersModel = new UsersModel();
+            $UsersModel->register($data);
+            //有没有上一步地址
+           
+            $this->redirect("Mobile/User/index");
+            //成功跳转
+
+        } else {
+            //登录失败哦
+            $this->error("登录失败");
+            exit;
+        }
+    }
 
     public function do_login()
     {
