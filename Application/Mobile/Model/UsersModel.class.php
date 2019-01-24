@@ -14,11 +14,11 @@ class UsersModel extends Model{
             return false;
         }
 
-        $Model = self;
-        $Model->user_id = $data['user_id'];
-        $Model->openid = $data['openid'];
-        $Model->head_pic = $data['head_pic'];
-        $Model->save();
+        
+        $add['user_id'] = $data['user_id'];
+        $add['openid'] = $data['openid'];
+        $add['head_pic'] = $data['head_pic'];
+        self::data($add)->add();
 
     }
 }
