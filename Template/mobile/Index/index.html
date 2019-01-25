@@ -20,17 +20,58 @@
 	<script src="__PUBLIC__/js/mobile_common.js"></script>
 </head>
 
+<style type="text/css">
+
+ul, li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mask {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .1);
+}
+
+.nav {
+  position: fixed;
+  z-index: 11;
+  right:  -7rem;
+  top: 0;
+  width: 7rem;
+  height: 100%;
+  background: #FFFFFF;
+}
+.nav {
+  transition: right linear .1s;
+}
+.nav a {
+  display: block;
+  padding: 1em 0;
+/*  border-bottom: 1px solid #888;*/
+  font-size: 16px;
+  color: #191818;
+  text-align: center;
+}
+
+</style>
+
 <body>
 	<div id="page" class="showpage">
 		<div>
-			<header id="header" style="position: fixed;z-index:1;">
+			<header id="header">
 				<!-- <a href="{:U('Goods/categoryList')}" class="user_btn"></a> -->
-				<div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more111" class='top_menu'></div>
+				<div href="javascript:void(0)" class='top_menu avatar-small'></div>
 				<!-- <span class="logo"></span> -->
 				<img style="height:40px;margin-top: 2px;" src="__PUBLIC__/images/logo.png" />
+				
 			</header>
-            <p>a</p>
-
 			<div id="scrollimg" class="scrollimg">
 				<div class="hd">
 					<ul></ul>
@@ -56,15 +97,35 @@
 				});
 			</script>
 
-			<div class="goods_nav hid" id="menu" style="top: 65px">
-				<ul>
-					<li><a href="{:U('Home/Index/index')}"><span class="menu1"></span><i>首页</i></a></li>
-					<li><a href="{:U('Goods/categoryList')}"><span class="menu2"></span><i>分类</i></a></li>
-					<li><a href="{:U('Cart/cart')}"><span class="menu3"></span><i>购物车</i></a></li>
-					<li style=" border:0;"><a href="{:U('User/index')}"><span class="menu4"></span><i>我的</i></a></li>
-				</ul>
-			</div>
-
+<!-- 			<div class="goods_nav hid" id="menu">
+	<ul>
+		<li><a href="{:U('Home/Index/index')}"><span class="menu1"></span><i>首页</i></a></li>
+		<li><a href="{:U('Goods/categoryList')}"><span class="menu2"></span><i>分类</i></a></li>
+		<li><a href="{:U('Cart/cart')}"><span class="menu3"></span><i>购物车</i></a></li>
+		<li style=" border:0;"><a href="{:U('User/index')}"><span class="menu4"></span><i>我的</i></a></li>
+	</ul>
+</div>
+ -->
+ <div class="mask"></div>
+   <div class="nav">
+    <ul>
+      <li>
+        <a href="{:U('Home/Index/index')}"><span class="menu1"></span><i>首页</i></a>
+      </li>
+      <li>
+        <a href="{:U('Goods/categoryList')}"><span class="menu2"></span><i>美食</i></a>
+      </li>
+      <li>
+        <a href="{:U('Cart/cart')}"><span class="menu3"></span><i>游玩</i></a>
+      </li>
+      <li>
+        <a href="{:U('User/index')}"><span class="menu4"></span><i>婚庆</i></a>
+      </li>
+      <li>
+        <a href="{:U('User/index')}"><span class="menu4"></span><i>合作</i></a>
+      </li>      
+    </ul>
+  </div>
 			<script>
 				function show_menu() {
 					var bd_top = $(document).scrollTop();
@@ -179,6 +240,36 @@
 		});
 		$('#searchtype').val($(this).attr('0'));
 	</script>
+
+
+
+
+
+<!-- 滑动窗口 -->
+<script type="text/javascript">
+let btn = document.getElementsByClassName('avatar-small')[0],
+    mask = document.getElementsByClassName('mask')[0],
+    nav = document.getElementsByClassName('nav')[0];
+   
+btn.addEventListener('click', function () {
+  mask.style.display = 'block';
+  nav.style.right = 0;
+}, false);
+
+mask.addEventListener('click', function () {
+  mask.style.display = 'none';
+  nav.style.right = '-7rem';
+}, false)
+	
+
+</script>
+
+
+
+
+
+
+
 	<script src="__PUBLIC__/js/jqueryUrlGet.js"></script>
 	<!--获取get参数插件-->
 	<script> set_first_leader(); //设置推荐人 </script>
