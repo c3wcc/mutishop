@@ -23,6 +23,11 @@ class MobileBaseController extends Controller {
           
         //微信浏览器
         if(strstr($_SERVER['HTTP_USER_AGENT'],'MicroMessenger') && empty($_SESSION['openid'])){
+            //跳转去登陆
+            header("location:" . U('Mobile/User/login'));
+            exit;
+            
+            
             $this->weixin_config = M('wx_user')->find(); //获取微信配置
             $this->assign('wechat_config', $this->weixin_config); 
             if(is_array($this->weixin_config) ){
