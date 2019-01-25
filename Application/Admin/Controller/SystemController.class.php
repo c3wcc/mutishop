@@ -248,25 +248,6 @@ class SystemController extends BaseController{
             $distributLogic->auto_confirm(); // 自动确认分成
 		 }
 		 
-		 //处理用户名统一
-		 $con['nick_name'] = array('exp','IS NULL');
-		 $user_list = M('users')->where($con)->select();
-		 if($user_list){
-			foreach($user_list as $k => $v)
-			{
-			   M('users')->where(array('user_id'=>$v['user_id']))->save(array('nick_name'=>$v['nickname']));
-			}
-		 }
-		
-		 $con1['nickname'] = array('exp','IS NULL');
-		 $user_list1 = M('users')->where($con1)->select();
-		 if($user_list1 ){
-			foreach($user_list1 as $k => $v)
-			{
-			   M('users')->where(array('user_id'=>$v['user_id']))->save(array('nickname'=>$v['nick_name']));
-			}
-		 }
-
 		 //任务处理
 		 $http_type = ((isset($_SERVER['HTTPS']) && 'on' == $_SERVER['HTTPS']) || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' == $_SERVER['HTTP_X_FORWARDED_PROTO'])) ? 'https://' : 'http://';
 

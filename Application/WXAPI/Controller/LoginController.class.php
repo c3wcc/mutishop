@@ -71,8 +71,8 @@ class LoginController extends Controller
 
         $data['country'] = I('country');
         $data['gender'] = I('gender');
-        $data['nick_name'] = I('nick_name');
-        $data['nickname'] = I('nick_name');
+        $data['nickname'] = I('nickname');
+        $data['nickname'] = I('nickname');
         $data['province'] = I('province');
         $data['city'] = I('city');
         $data['head_pic'] = I('head_pic');

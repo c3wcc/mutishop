@@ -235,7 +235,7 @@ class CouponController extends BaseController {
     	$show = $Page->show();
         
         //查询该优惠券的列表
-        $sql = "SELECT l.*,c.name,o.order_sn,u.nick_name FROM __PREFIX__coupon_list  l ".
+        $sql = "SELECT l.*,c.name,o.order_sn,u.nickname FROM __PREFIX__coupon_list  l ".
                 "LEFT JOIN __PREFIX__coupon c ON c.id = l.cid ". //联合优惠券表查询名称
                 "LEFT JOIN __PREFIX__order o ON o.order_id = l.order_id ".     //联合订单表查询订单编号
                 "LEFT JOIN __PREFIX__users u ON u.user_id = l.uid WHERE l.cid = ".$cid.    //联合用户表去查询用户名

@@ -177,7 +177,7 @@ class UserController extends BaseController
             exit($this->ajaxReturn(array('status' => -1, 'msg' => '该用户不存在', 'result' => '')));
         }
 
-        I('nick_name') ? $data['nick_name'] = I('nick_name') : false; //昵称
+        I('nickname') ? $data['nickname'] = I('nickname') : false; //昵称
         I('qq') ? $data['qq'] = I('qq') : false;  //QQ号码
         I('head_pic') ? $data['head_pic'] = I('head_pic') : false; //头像地址
         I('sex') ? $data['sex'] = I('sex') : false;  // 性别
@@ -657,7 +657,7 @@ class UserController extends BaseController
         $user_info = M('users')->where("user_id = {$this->user_id}")->find();
         if ($user_info['first_leader'] > 0) {
             $parent_info = M('users')->where("user_id = '".$user_info['first_leader']."'")->find();
-            exit($this->ajaxReturn(array('status' => 1, 'msg' => '', 'result' => $parent_info['nick_name'])));
+            exit($this->ajaxReturn(array('status' => 1, 'msg' => '', 'result' => $parent_info['nickname'])));
         } else {
             exit($this->ajaxReturn(array('status' => 1, 'msg' => '', 'result' => '无推荐人')));
         }
@@ -1045,7 +1045,7 @@ class UserController extends BaseController
 
         $data['reg_time'] = time();
 
-        $nick_name = $_GET['nick_name'];
+        $nickname = $_GET['nickname'];
 
         $cz = M('users')->where(array('open_id' => $data['open_id']))->find();
         if ($cz) {
@@ -1080,7 +1080,7 @@ class UserController extends BaseController
         $data['country'] = $_GET['country'];
         $data['gender'] = $_GET['gender'];
         $data['open_id'] = $_GET['open_id'];
-        $data['nick_name'] = $_GET['nick_name'];
+        $data['nickname'] = $_GET['nickname'];
         $data['province'] = $_GET['province'];
         $data['head_pic'] = $_GET['head_pic'];
         $data['first_leader'] = $_GET['first_leader'];
@@ -1095,8 +1095,8 @@ class UserController extends BaseController
             $this->ajaxReturn(array('code' => '400', 'msg' => '注册失败，openid_id不能为空'));
             exit;
         }
-        if (!$data['nick_name'] || null == $data['nick_name'] || 'undefined' == $data['nick_name']) {
-            $this->ajaxReturn(array('code' => '400', 'msg' => '注册失败，nick_name不能为空'));
+        if (!$data['nickname'] || null == $data['nickname'] || 'undefined' == $data['nickname']) {
+            $this->ajaxReturn(array('code' => '400', 'msg' => '注册失败，nickname不能为空'));
             exit;
         }
 

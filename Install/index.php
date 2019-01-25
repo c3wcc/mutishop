@@ -31,7 +31,7 @@ define('SITEDIR', _dir_path(substr(dirname(__FILE__), 0, -8)));
 define("TP_SHOP_VERSION", '20160501');
 
 //数据库
-$sqlFile = 'tpshop.sql';
+$sqlFile = 'mutishop.sql';
 $configFile = 'config.php';
 if (!file_exists(SITEDIR . 'Install/' . $sqlFile) || !file_exists(SITEDIR . 'Install/' . $configFile)) {
     echo '缺少必要的安装文件!';

@@ -33,7 +33,7 @@ class UserController extends BaseController {
     public function ajaxindex(){
         // 搜索条件
         $condition = array();
-        I('nick_name') ? $condition['nick_name'] = array("like","%".I('nick_name')."%") : false;
+        I('nickname') ? $condition['nickname'] = array("like","%".I('nickname')."%") : false;
         I('email') ? $condition['email'] = I('email') : false;
 		
 		  I('first_leader') ? $condition['first_leader'] = I('first_leader') : false; // 查看一级下线人有哪些

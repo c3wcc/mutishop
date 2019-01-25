@@ -315,7 +315,7 @@ class StoreController extends BaseController{
 		
 	// 	foreach ($list as $key=>$value){
 	// 		//print_r(M('users')->where(array("user_id"=>$value['user_id']))->find());
-	// 		$list[$key]['nick_name'] = M('users')->where(array("user_id"=>$value['user_id']))->getField("nickname");
+	// 		$list[$key]['nickname'] = M('users')->where(array("user_id"=>$value['user_id']))->getField("nickname");
 	// 	}
 	// 	$this->assign('list',$list);
 	// 	$show = $Page->show();
@@ -342,7 +342,7 @@ class StoreController extends BaseController{
 	
 		foreach ($list as $key=>$value){
 			
-			$list[$key]['nick_name'] = M('users')->where(array("user_id"=>$value['user_id']))->getField("nickname");
+			$list[$key]['nickname'] = M('users')->where(array("user_id"=>$value['user_id']))->getField("nickname");
 		}
 
 		$this->assign('list',$list);
