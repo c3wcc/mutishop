@@ -5,10 +5,9 @@ namespace Mobile\Controller;
 use Home\Logic\StoreLogic;
 use Home\Logic\UsersLogic;
 use Mobile\Logic\OrderGoodsLogic;
+use Mobile\Model\UsersModel;
 use Think\Page;
 use Think\Verify;
-
-use Mobile\Model\UsersModel;
 
 class UserController extends MobileBaseController
 {
@@ -17,15 +16,15 @@ class UserController extends MobileBaseController
     public $user = array();
 
     /*
-    * 初始化操作
-    */
+     * 初始化操作
+     */
     public function _initialize()
     {
         parent::_initialize();
         if (session('?user')) {
             $user = session('user');
             $user = M('users')->where("user_id = {$user['user_id']}")->find();
-            session('user', $user);  //覆盖session 中的 user
+            session('user', $user); //覆盖session 中的 user
             $this->user = $user;
             $this->user_id = $user['user_id'];
             $this->assign('user', $user); //存储用户信息
@@ -57,7 +56,7 @@ class UserController extends MobileBaseController
 
         $order_count = M('order')->where("user_id = {$this->user_id}")->count(); // 我的订单数
         $goods_collect_count = M('goods_collect')->where("user_id = {$this->user_id}")->count(); // 我的商品收藏
-        $comment_count = M('comment')->where("user_id = {$this->user_id}")->count();//  我的评论数
+        $comment_count = M('comment')->where("user_id = {$this->user_id}")->count(); //  我的评论数
         $coupon_count = M('coupon_list')->where("uid = {$this->user_id}")->count(); // 我的优惠券数量
         $level_name = M('user_level')->where("level_id = '{$this->user['level']}'")->getField('level_name'); // 等级名称
         $this->assign('level_name', $level_name);
@@ -67,7 +66,6 @@ class UserController extends MobileBaseController
         $this->assign('coupon_count', $coupon_count);
         $this->display();
     }
-
 
     public function logout()
     {
@@ -125,24 +123,21 @@ class UserController extends MobileBaseController
             header("Location: " . U('Mobile/User/index'));
         }
 
-      
-
         //微信浏览器，自动登录
-        if(strstr($_SERVER['HTTP_USER_AGENT'],'MicroMessenger') ){
+        if (strstr($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger')) {
 
             $token = I('token');
-            if($token){
-                $this->check($token,$referurl);
+            if ($token) {
+                $this->check($token, $referurl);
                 exit;
             }
 
-            $redirect_uri = SITE_URL.'/mobile/user/login';
-            $account_url = "https://account.c3w.cc/?redirect_uri=".$redirect_uri;
-            header("Location:".$account_url);
+            $redirect_uri = SITE_URL . '/mobile/user/login';
+            $account_url = "https://account.c3w.cc/?redirect_uri=" . $redirect_uri;
+            header("Location:" . $account_url);
             exit;
         }
 
-       
         $this->assign('referurl', $referurl);
         $this->display();
     }
@@ -150,8 +145,9 @@ class UserController extends MobileBaseController
     /**
      * 微信登录后的 处理
      */
-    public function check($token){
-    
+    public function check($token)
+    {
+
         if (!$token) {
             $this->error("登录出错");
             exit;
@@ -167,11 +163,11 @@ class UserController extends MobileBaseController
             $user = $res['data'];
 
             session('user', $user);
-            
+
             $UsersModel = new UsersModel();
             $UsersModel->register($user);
             //有没有上一步地址
-           
+
             $this->redirect("Mobile/User/index");
             //成功跳转
 
@@ -197,9 +193,9 @@ class UserController extends MobileBaseController
             setcookie('is_distribut', $res['result']['is_distribut'], null, '/');
             $nickname = empty($res['result']['nickname']) ? $username : $res['result']['nickname'];
             setcookie('uname', $nickname, null, '/');
-            setcookie('cn',0,time()-3600,'/');
+            setcookie('cn', 0, time() - 3600, '/');
             $cartLogic = new \Home\Logic\CartLogic();
-            $cartLogic->login_cart_handle($this->session_id, $res['result']['user_id']);  //用户登录后 需要对购物车 一些操作
+            $cartLogic->login_cart_handle($this->session_id, $res['result']['user_id']); //用户登录后 需要对购物车 一些操作
         }
         exit(json_encode($res));
     }
@@ -209,7 +205,10 @@ class UserController extends MobileBaseController
      */
     public function reg()
     {
-    	if($this->user_id > 0) header("Location: " . U('Mobile/User/index'));
+        if ($this->user_id > 0) {
+            header("Location: " . U('Mobile/User/index'));
+        }
+
         if (IS_POST) {
             $logic = new UsersLogic();
             //验证码检验
@@ -222,22 +221,27 @@ class UserController extends MobileBaseController
             if (check_mobile($username) && tpCache('sms.regis_sms_enable')) {
                 $code = I('post.mobile_code', '');
 
-                if (!$code)
+                if (!$code) {
                     $this->error('请输入验证码');
+                }
+
                 $check_code = $logic->sms_code_verify($username, $code, $this->session_id);
-                if ($check_code['status'] != 1)
+                if ($check_code['status'] != 1) {
                     $this->error($check_code['msg']);
+                }
 
             }
 
             $data = $logic->reg($username, $password, $password2);
-            if ($data['status'] != 1)
+            if ($data['status'] != 1) {
                 $this->error($data['msg']);
+            }
+
             session('user', $data['result']);
             setcookie('user_id', $data['result']['user_id'], null, '/');
             setcookie('is_distribut', $data['result']['is_distribut'], null, '/');
             $cartLogic = new \Home\Logic\CartLogic();
-            $cartLogic->login_cart_handle($this->session_id, $data['result']['user_id']);  //用户登录后 需要对购物车 一些操作
+            $cartLogic->login_cart_handle($this->session_id, $data['result']['user_id']); //用户登录后 需要对购物车 一些操作
             $this->success($data['msg'], U('Mobile/User/index'));
             exit;
         }
@@ -252,7 +256,7 @@ class UserController extends MobileBaseController
     public function order_list()
     {
         $where = ' user_id=' . $this->user_id;
-        //条件搜索 
+        //条件搜索
 
         if (in_array(strtoupper(I('type')), array('WAITCCOMMENT', 'COMMENTED'))) {
             $where .= " AND order_status in (2,4)   "; //已完成
@@ -270,7 +274,7 @@ class UserController extends MobileBaseController
         //获取订单商品
         $model = new UsersLogic();
         foreach ($order_list as $k => $v) {
-            $order_list[$k] = set_btn_order_status($v);  // 添加属性  包括按钮显示属性 和 订单状态显示属性
+            $order_list[$k] = set_btn_order_status($v); // 添加属性  包括按钮显示属性 和 订单状态显示属性
             //$order_list[$k]['total_fee'] = $v['goods_amount'] + $v['shipping_fee'] - $v['integral_money'] -$v['bonus'] - $v['discount']; //订单总额
             $data = $model->get_order_goods($v['order_id']);
             $order_list[$k]['goods_list'] = $data['result'];
@@ -290,7 +294,6 @@ class UserController extends MobileBaseController
         }
         $this->display();
     }
-
 
     /*
      * 订单列表
@@ -312,7 +315,7 @@ class UserController extends MobileBaseController
         $map['order_id'] = $id;
         $map['user_id'] = $this->user_id;
         $order_info = M('order')->where($map)->find();
-        $order_info = set_btn_order_status($order_info);  // 添加属性  包括按钮显示属性 和 订单状态显示属性
+        $order_info = set_btn_order_status($order_info); // 添加属性  包括按钮显示属性 和 订单状态显示属性
         if (!$order_info) {
             $this->error('没有获取到订单信息');
             exit;
@@ -332,8 +335,9 @@ class UserController extends MobileBaseController
         $ids[] = $order_info['province'];
         $ids[] = $order_info['city'];
         $ids[] = $order_info['district'];
-        if (!empty($ids))
+        if (!empty($ids)) {
             $regionLits = M('region')->where("id in (" . implode(',', $ids) . ")")->getField("id,name");
+        }
 
         $region_list = get_region_list();
         $invoice_no = M('DeliveryDoc')->where("order_id = $id")->getField('invoice_no', true);
@@ -375,8 +379,10 @@ class UserController extends MobileBaseController
         //检查是否有积分，余额支付
         $logic = new UsersLogic();
         $data = $logic->cancel_order($this->user_id, $id);
-        if ($data['status'] < 0)
+        if ($data['status'] < 0) {
             $this->error($data['msg']);
+        }
+
         $this->success($data['msg']);
     }
 
@@ -400,9 +406,9 @@ class UserController extends MobileBaseController
         if (IS_POST) {
             $logic = new UsersLogic();
             $data = $logic->add_address($this->user_id, 0, I('post.'));
-            if ($data['status'] != 1)
+            if ($data['status'] != 1) {
                 $this->error($data['msg']);
-            elseif ($_POST['source'] == 'cart2') {
+            } elseif ($_POST['source'] == 'cart2') {
                 header('Location:' . U('/Mobile/Cart/cart2', array('address_id' => $data['result'])));
                 exit;
             }
@@ -430,8 +436,10 @@ class UserController extends MobileBaseController
             if ($_POST['source'] == 'cart2') {
                 header('Location:' . U('/Mobile/Cart/cart2', array('address_id' => $id)));
                 exit;
-            } else
+            } else {
                 $this->success($data['msg'], U('/Mobile/User/address_list'));
+            }
+
             exit();
         }
         //获取省份
@@ -471,22 +479,24 @@ class UserController extends MobileBaseController
     /*
      * 地址删除
      */
-    public function del_address(){
+    public function del_address()
+    {
         $id = I('get.id');
-        
+
         $address = M('user_address')->where("address_id = $id")->find();
-        $row = M('user_address')->where(array('user_id'=>$this->user_id,'address_id'=>$id))->delete();                
+        $row = M('user_address')->where(array('user_id' => $this->user_id, 'address_id' => $id))->delete();
         // 如果删除的是默认收货地址 则要把第一个地址设置为默认收货地址
-        if($address['is_default'] == 1)
-        {
-            $address2 = M('user_address')->where("user_id = {$this->user_id}")->find();            
-            $address2 && M('user_address')->where("address_id = {$address2['address_id']}")->save(array('is_default'=>1));
-        }        
-        if(!$row)
-            $this->error('操作失败',U('User/address_list'));
-        else
-            $this->success("操作成功",U('User/address_list'));
-    } 
+        if ($address['is_default'] == 1) {
+            $address2 = M('user_address')->where("user_id = {$this->user_id}")->find();
+            $address2 && M('user_address')->where("address_id = {$address2['address_id']}")->save(array('is_default' => 1));
+        }
+        if (!$row) {
+            $this->error('操作失败', U('User/address_list'));
+        } else {
+            $this->success("操作成功", U('User/address_list'));
+        }
+
+    }
 
     /*
      * 评论晒单
@@ -497,7 +507,7 @@ class UserController extends MobileBaseController
         $status = I('get.status');
         $logic = new UsersLogic();
         $result = $logic->get_comment($user_id, $status); //获取评论列表
-      
+
         $this->assign('comment_list', $result['result']);
         if ($_GET['is_ajax']) {
             $this->display('ajax_comment_list');
@@ -514,15 +524,15 @@ class UserController extends MobileBaseController
         if (IS_POST) {
             // 晒图片
             if ($_FILES[comment_img_file][tmp_name][0]) {
-                $upload = new \Think\Upload();// 实例化上传类
-                $upload->maxSize = $map['author'] = (1024 * 1024 * 3);// 设置附件上传大小 管理员10M  否则 3M
-                $upload->exts = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+                $upload = new \Think\Upload(); // 实例化上传类
+                $upload->maxSize = $map['author'] = (1024 * 1024 * 3); // 设置附件上传大小 管理员10M  否则 3M
+                $upload->exts = array('jpg', 'gif', 'png', 'jpeg'); // 设置附件上传类型
                 $upload->rootPath = './Public/upload/comment/'; // 设置附件上传根目录
                 $upload->replace = true; // 存在同名文件是否是覆盖，默认为false
                 //$upload->saveName  =  'file_'.$id; // 存在同名文件是否是覆盖，默认为false
                 // 上传文件
                 $upinfo = $upload->upload();
-                if (!$upinfo) {// 上传错误提示错误信息
+                if (!$upinfo) { // 上传错误提示错误信息
                     $this->error($upload->getError());
                 } else {
                     foreach ($upinfo as $key => $val) {
@@ -564,7 +574,6 @@ class UserController extends MobileBaseController
         $this->assign('order_goods', $order_goods);
         $this->display();
     }
-
 
     /**
      * @time 2016/8/5
@@ -629,7 +638,7 @@ class UserController extends MobileBaseController
                 M('order_comment')->where($store_score_where)->save($store_score);
                 M('order')->where(array('order_id' => $order_id))->save(array('is_comment' => 1));
             } else {
-                M('order_comment')->add($store_score);//订单打分
+                M('order_comment')->add($store_score); //订单打分
                 M('order')->where(array('order_id' => $order_id))->save(array('is_comment' => 1));
             }
             //订单打分后更新店铺评分
@@ -649,7 +658,7 @@ class UserController extends MobileBaseController
         $comment['impression'] = (empty($tag[0])) ? '' : implode(',', $tag);
         $comment['is_anonymous'] = empty($anonymous) ? 1 : 0;
         $comment['add_time'] = time();
-        M('comment')->add($comment);//想评论表插入数据
+        M('comment')->add($comment); //想评论表插入数据
         M('order_goods')->where(array('order_id' => $store_score['order_id'], 'goods_id' => $goods_id))->save(array('is_comment' => 1));
         M('goods')->where(array('goods_id' => $goods_id))->setInc('comment_count', 1);
         unset($comment);
@@ -666,13 +675,13 @@ class UserController extends MobileBaseController
         $user_info = $user_info['result'];
         if (IS_POST) {
             I('post.nickname') ? $post['nickname'] = I('post.nickname') : false; //昵称
-            I('post.qq') ? $post['qq'] = I('post.qq') : false;  //QQ号码
+            I('post.qq') ? $post['qq'] = I('post.qq') : false; //QQ号码
             I('post.head_pic') ? $post['head_pic'] = I('post.head_pic') : false; //头像地址
-            I('post.sex') ? $post['sex'] = I('post.sex') : false;  // 性别
-            I('post.birthday') ? $post['birthday'] = strtotime(I('post.birthday')) : false;  // 生日
-            I('post.province') ? $post['province'] = I('post.province') : false;  //省份
-            I('post.city') ? $post['city'] = I('post.city') : false;  // 城市
-            I('post.district') ? $post['district'] = I('post.district') : false;  //地区
+            I('post.sex') ? $post['sex'] = I('post.sex') : false; // 性别
+            I('post.birthday') ? $post['birthday'] = strtotime(I('post.birthday')) : false; // 生日
+            I('post.province') ? $post['province'] = I('post.province') : false; //省份
+            I('post.city') ? $post['city'] = I('post.city') : false; // 城市
+            I('post.district') ? $post['district'] = I('post.district') : false; //地区
             I('post.email') ? $post['email'] = I('post.email') : false; //邮箱
             I('post.mobile') ? $post['mobile'] = I('post.mobile') : false; //手机
             $email = I('post.email');
@@ -687,14 +696,16 @@ class UserController extends MobileBaseController
                 $c = M('users')->where("mobile = '{$post['mobile']}' and user_id != {$this->user_id}")->count();
                 $c && $this->error("手机已被使用");
 //                if (!$code)
-//                    $this->error('请输入验证码');
-//                $check_code = $userLogic->sms_code_verify($mobile, $code, $this->session_id);
-//                if ($check_code['status'] != 1)
-//                    $this->error($check_code['msg']);
+                //                    $this->error('请输入验证码');
+                //                $check_code = $userLogic->sms_code_verify($mobile, $code, $this->session_id);
+                //                if ($check_code['status'] != 1)
+                //                    $this->error($check_code['msg']);
             }
 
-            if (!$userLogic->update_info($this->user_id, $post))
+            if (!$userLogic->update_info($this->user_id, $post)) {
                 $this->error("保存失败");
+            }
+
             $this->success("操作成功");
             exit;
         }
@@ -722,25 +733,35 @@ class UserController extends MobileBaseController
         $user_info = $user_info['result'];
         $step = I('get.step', 1);
         //验证是否未绑定过
-        if ($user_info['email_validated'] == 0)
+        if ($user_info['email_validated'] == 0) {
             $step = 2;
+        }
+
         //原邮箱验证是否通过
-        if ($user_info['email_validated'] == 1 && session('email_step1') == 1)
+        if ($user_info['email_validated'] == 1 && session('email_step1') == 1) {
             $step = 2;
-        if ($user_info['email_validated'] == 1 && session('email_step1') != 1)
+        }
+
+        if ($user_info['email_validated'] == 1 && session('email_step1') != 1) {
             $step = 1;
+        }
+
         if (IS_POST) {
             $email = I('post.email');
             $code = I('post.code');
             $info = session('email_code');
-            if (!$info)
+            if (!$info) {
                 $this->error('非法操作');
+            }
+
             if ($info['email'] == $email || $info['code'] == $code) {
                 if ($user_info['email_validated'] == 0 || session('email_step1') == 1) {
                     session('email_code', null);
                     session('email_step1', null);
-                    if (!$userLogic->update_email_mobile($email, $this->user_id))
+                    if (!$userLogic->update_email_mobile($email, $this->user_id)) {
                         $this->error('邮箱已存在');
+                    }
+
                     $this->success('绑定成功', U('Home/User/index'));
                 } else {
                     session('email_code', null);
@@ -756,8 +777,8 @@ class UserController extends MobileBaseController
     }
 
     /*
-    * 手机验证
-    */
+     * 手机验证
+     */
     public function mobile_validate()
     {
         $userLogic = new UsersLogic();
@@ -765,25 +786,35 @@ class UserController extends MobileBaseController
         $user_info = $user_info['result'];
         $step = I('get.step', 1);
         //验证是否未绑定过
-        if ($user_info['mobile_validated'] == 0)
+        if ($user_info['mobile_validated'] == 0) {
             $step = 2;
+        }
+
         //原手机验证是否通过
-        if ($user_info['mobile_validated'] == 1 && session('mobile_step1') == 1)
+        if ($user_info['mobile_validated'] == 1 && session('mobile_step1') == 1) {
             $step = 2;
-        if ($user_info['mobile_validated'] == 1 && session('mobile_step1') != 1)
+        }
+
+        if ($user_info['mobile_validated'] == 1 && session('mobile_step1') != 1) {
             $step = 1;
+        }
+
         if (IS_POST) {
             $mobile = I('post.mobile');
             $code = I('post.code');
             $info = session('mobile_code');
-            if (!$info)
+            if (!$info) {
                 $this->error('非法操作');
+            }
+
             if ($info['email'] == $mobile || $info['code'] == $code) {
                 if ($user_info['email_validated'] == 0 || session('email_step1') == 1) {
                     session('mobile_code', null);
                     session('mobile_step1', null);
-                    if (!$userLogic->update_email_mobile($mobile, $this->user_id, 2))
+                    if (!$userLogic->update_email_mobile($mobile, $this->user_id, 2)) {
                         $this->error('手机已存在');
+                    }
+
                     $this->success('绑定成功', U('Home/User/index'));
                 } else {
                     session('mobile_code', null);
@@ -802,7 +833,7 @@ class UserController extends MobileBaseController
     {
         $userLogic = new UsersLogic();
         $data = $userLogic->get_goods_collect($this->user_id);
-        $this->assign('page', $data['show']);// 赋值分页输出
+        $this->assign('page', $data['show']); // 赋值分页输出
         $this->assign('goods_list', $data['result']);
         if ($_GET['is_ajax']) {
             $this->display('ajax_collect_list');
@@ -859,22 +890,22 @@ class UserController extends MobileBaseController
 
     public function points()
     {
-    	$type = I('type','all');
-    	$this->assign('type',$type);
-    	if($type == 'recharge'){
-    		$count = M('recharge')->where("user_id=" . $this->user_id)->count();
-    		$Page = new Page($count, 16);
-    		$account_log = M('recharge')->where("user_id=" . $this->user_id)->order('order_id desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
-    	}else if($type == 'points'){
-    		$count = M('account_log')->where("user_id=" . $this->user_id ." and pay_points!=0 ")->count();
-    		$Page = new Page($count, 16);
-    		$account_log = M('account_log')->where("user_id=" . $this->user_id." and pay_points!=0 ")->order('log_id desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
-    	}else{
-    		$count = M('account_log')->where("user_id=" . $this->user_id)->count();
-    		$Page = new Page($count, 16);
-    		$account_log = M('account_log')->where("user_id=" . $this->user_id)->order('log_id desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
-    	}
-		$showpage = $Page->show();
+        $type = I('type', 'all');
+        $this->assign('type', $type);
+        if ($type == 'recharge') {
+            $count = M('recharge')->where("user_id=" . $this->user_id)->count();
+            $Page = new Page($count, 16);
+            $account_log = M('recharge')->where("user_id=" . $this->user_id)->order('order_id desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
+        } else if ($type == 'points') {
+            $count = M('account_log')->where("user_id=" . $this->user_id . " and pay_points!=0 ")->count();
+            $Page = new Page($count, 16);
+            $account_log = M('account_log')->where("user_id=" . $this->user_id . " and pay_points!=0 ")->order('log_id desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
+        } else {
+            $count = M('account_log')->where("user_id=" . $this->user_id)->count();
+            $Page = new Page($count, 16);
+            $account_log = M('account_log')->where("user_id=" . $this->user_id)->order('log_id desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
+        }
+        $showpage = $Page->show();
         $this->assign('account_log', $account_log);
         $this->assign('page', $showpage);
         if ($_GET['is_ajax']) {
@@ -893,20 +924,24 @@ class UserController extends MobileBaseController
         $logic = new UsersLogic();
         $data = $logic->get_info($this->user_id);
         $user = $data['result'];
-        if ($user['mobile'] == '' && $user['email'] == '')
+        if ($user['mobile'] == '' && $user['email'] == '') {
             $this->error('请先到电脑端绑定手机', U('/Mobile/User/index'));
+        }
+
         if (IS_POST) {
             $userLogic = new UsersLogic();
             $data = $userLogic->password($this->user_id, I('post.old_password'), I('post.new_password'), I('post.confirm_password')); // 获取用户信息
-            if ($data['status'] == -1)
+            if ($data['status'] == -1) {
                 $this->error($data['msg']);
+            }
+
             $this->success($data['msg']);
             exit;
         }
         $this->display();
     }
 
-    function forget_pwd()
+    public function forget_pwd()
     {
         if ($this->user_id > 0) {
             header("Location: " . U('User/Index'));
@@ -933,7 +968,7 @@ class UserController extends MobileBaseController
         $this->display();
     }
 
-    function find_pwd()
+    public function find_pwd()
     {
         if ($this->user_id > 0) {
             header("Location: " . U('User/Index'));
@@ -945,7 +980,6 @@ class UserController extends MobileBaseController
         $this->assign('user', $user);
         $this->display();
     }
-
 
     public function set_pwd()
     {
@@ -1038,11 +1072,13 @@ class UserController extends MobileBaseController
     public function order_confirm()
     {
         $id = I('get.id', 0);
-        $data = confirm_order($id,$this->user_id);
-        if (!$data['status'])
+        $data = confirm_order($id, $this->user_id);
+        if (!$data['status']) {
             $this->error($data['msg']);
-        else
+        } else {
             $this->success($data['msg']);
+        }
+
     }
 
     /**
@@ -1054,14 +1090,13 @@ class UserController extends MobileBaseController
         $order_sn = I('order_sn', 0);
         $goods_id = I('goods_id', 0);
         $spec_key = I('spec_key');
-        
+
         $c = M('order')->where("order_id = $order_id and user_id = {$this->user_id}")->count();
-        if($c == 0)
-        {
+        if ($c == 0) {
             $this->error('非法操作');
             exit;
-        }          
-        
+        }
+
         $return_goods = M('return_goods')->where("order_id = $order_id and goods_id = $goods_id and spec_key = '$spec_key'")->find();
         if (!empty($return_goods)) {
             $this->success('已经提交过退货申请!', U('Mobile/User/return_goods_info', array('id' => $return_goods['id'])));
@@ -1071,27 +1106,27 @@ class UserController extends MobileBaseController
 
             // 晒图片
             if ($_FILES[return_imgs][tmp_name][0]) {
-                $upload = new \Think\Upload();// 实例化上传类
-                $upload->maxSize = $map['author'] = (1024 * 1024 * 3);// 设置附件上传大小 管理员10M  否则 3M
-                $upload->exts = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+                $upload = new \Think\Upload(); // 实例化上传类
+                $upload->maxSize = $map['author'] = (1024 * 1024 * 3); // 设置附件上传大小 管理员10M  否则 3M
+                $upload->exts = array('jpg', 'gif', 'png', 'jpeg'); // 设置附件上传类型
                 $upload->rootPath = './Public/upload/return_goods/'; // 设置附件上传根目录
                 $upload->replace = true; // 存在同名文件是否是覆盖，默认为false
                 //$upload->saveName  =  'file_'.$id; // 存在同名文件是否是覆盖，默认为false
                 // 上传文件
                 $upinfo = $upload->upload();
-                if (!$upinfo) {// 上传错误提示错误信息
+                if (!$upinfo) { // 上传错误提示错误信息
                     $this->error($upload->getError());
                 } else {
                     foreach ($upinfo as $key => $val) {
                         $return_imgs[] = '/Public/upload/return_goods/' . $val['savepath'] . $val['savename'];
                     }
-                    $data['imgs'] = implode(',', $return_imgs);// 上传的图片文件
+                    $data['imgs'] = implode(',', $return_imgs); // 上传的图片文件
                 }
             }
 
-            $store_id  = M('order')->where(array('order_id'=>$order_id))->getField('store_id');
-            if(!$store_id || $store_id == 0){
-                $store_id  = M('order')->where(array('order_sn'=>$order_sn))->getField('store_id');
+            $store_id = M('order')->where(array('order_id' => $order_id))->getField('store_id');
+            if (!$store_id || $store_id == 0) {
+                $store_id = M('order')->where(array('order_sn' => $order_sn))->getField('store_id');
             }
 
             $data['order_id'] = $order_id;
@@ -1101,8 +1136,8 @@ class UserController extends MobileBaseController
             $data['addtime'] = time();
             $data['user_id'] = $this->user_id;
             $data['type'] = I('type'); // 服务类型  退货 或者 换货
-            $data['reason'] = I('reason'); // 问题描述     
-            $data['spec_key'] = I('spec_key'); // 商品规格						       
+            $data['reason'] = I('reason'); // 问题描述
+            $data['spec_key'] = I('spec_key'); // 商品规格
             M('return_goods')->add($data);
             $this->success('申请成功,客服第一时间会帮你处理', U('Mobile/User/order_list'));
             exit;
@@ -1125,11 +1160,13 @@ class UserController extends MobileBaseController
         $page = new Page($count, 4);
         $list = M('return_goods')->where("user_id = {$this->user_id}")->order("id desc")->limit("{$page->firstRow},{$page->listRows}")->select();
         $goods_id_arr = get_arr_column($list, 'goods_id');
-        if (!empty($goods_id_arr))
+        if (!empty($goods_id_arr)) {
             $goodsList = M('goods')->where("goods_id in (" . implode(',', $goods_id_arr) . ")")->getField('goods_id,goods_name');
+        }
+
         $this->assign('goodsList', $goodsList);
         $this->assign('list', $list);
-        $this->assign('page', $page->show());// 赋值分页输出                    	    	
+        $this->assign('page', $page->show()); // 赋值分页输出
         if ($_GET['is_ajax']) {
             $this->display('return_ajax_goods_list');
             exit;
@@ -1144,71 +1181,70 @@ class UserController extends MobileBaseController
     {
         $id = I('id', 0);
         $return_goods = M('return_goods')->where("id = $id")->find();
-        if ($return_goods['imgs'])
+        if ($return_goods['imgs']) {
             $return_goods['imgs'] = explode(',', $return_goods['imgs']);
+        }
+
         $goods = M('goods')->where("goods_id = {$return_goods['goods_id']} ")->find();
         $this->assign('goods', $goods);
         $this->assign('return_goods', $return_goods);
         $this->display();
     }
-    
-    public  function recharge(){
-       	$order_id = I('order_id');
-        $paymentList = M('Plugin')->where("`type`='payment' and code!='cod' and status = 1 and  scene in(0,1)")->select();        
+
+    public function recharge()
+    {
+        $order_id = I('order_id');
+        $paymentList = M('Plugin')->where("`type`='payment' and code!='cod' and status = 1 and  scene in(0,1)")->select();
         //微信浏览器
-        if(strstr($_SERVER['HTTP_USER_AGENT'],'MicroMessenger')){
-            $paymentList = M('Plugin')->where("`type`='payment' and status = 1 and code='weixin'")->select();            
-        }        
+        if (strstr($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger')) {
+            $paymentList = M('Plugin')->where("`type`='payment' and status = 1 and code='weixin'")->select();
+        }
         $paymentList = convert_arr_key($paymentList, 'code');
 
-        foreach($paymentList as $key => $val)
-        {
+        foreach ($paymentList as $key => $val) {
             $val['config_value'] = unserialize($val['config_value']);
-            if($val['config_value']['is_bank'] == 2)
-            {
+            if ($val['config_value']['is_bank'] == 2) {
                 $bankCodeList[$val['code']] = unserialize($val['bank_code']);
             }
         }
         $bank_img = include 'Application/Home/Conf/bank.php'; // 银行对应图片
         $payment = M('Plugin')->where("`type`='payment' and status = 1")->select();
-        $this->assign('paymentList',$paymentList);
-        $this->assign('bank_img',$bank_img);
-        $this->assign('bankCodeList',$bankCodeList);
-        
-        if($order_id>0){
-        	$order = M('recharge')->where("order_id = $order_id")->find();    
-        	$this->assign('order',$order);
-        }    
-    	$this->display();
+        $this->assign('paymentList', $paymentList);
+        $this->assign('bank_img', $bank_img);
+        $this->assign('bankCodeList', $bankCodeList);
+
+        if ($order_id > 0) {
+            $order = M('recharge')->where("order_id = $order_id")->find();
+            $this->assign('order', $order);
+        }
+        $this->display();
     }
     /**
      * 申请提现记录
      */
-    public function withdrawals(){
+    public function withdrawals()
+    {
 
-        C('TOKEN_ON',true);
-        if(IS_POST)
-        {
+        C('TOKEN_ON', true);
+        if (IS_POST) {
             $this->verifyHandle('withdrawals');
             $data = I('post.');
             $data['user_id'] = $this->user_id;
             $data['create_time'] = time();
             $distribut_min = tpCache('distribut.min'); // 最少提现额度
-            if($data['money'] < $distribut_min)
-            {
-                $this->error('每次最少提现额度'.$distribut_min);
+            if ($data['money'] < $distribut_min) {
+                $this->error('每次最少提现额度' . $distribut_min);
                 exit;
             }
-            if($data['money'] > $this->user['user_money'])
-            {
+            if ($data['money'] > $this->user['user_money']) {
                 $this->error("你最多可提现{$this->user['user_money']}账户余额.");
                 exit;
             }
 
-            if(M('withdrawals')->add($data)){
+            if (M('withdrawals')->add($data)) {
                 $this->success("已提交申请");
                 exit;
-            }else{
+            } else {
                 $this->error('提交失败,联系客服!');
                 exit;
             }
@@ -1216,13 +1252,12 @@ class UserController extends MobileBaseController
 
         $where = " user_id = {$this->user_id}";
         $count = M('withdrawals')->where($where)->count();
-        $page = new Page($count,16);
+        $page = new Page($count, 16);
         $list = M('withdrawals')->where($where)->order("id desc")->limit("{$page->firstRow},{$page->listRows}")->select();
 
-        $this->assign('page', $page->show());// 赋值分页输出
-        $this->assign('list',$list); // 下线
-        if($_GET['is_ajax'])
-        {
+        $this->assign('page', $page->show()); // 赋值分页输出
+        $this->assign('list', $list); // 下线
+        if ($_GET['is_ajax']) {
             $this->display('ajaxx_withdrawals_list');
             exit;
         }
