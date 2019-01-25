@@ -23,12 +23,13 @@
 <body>
 	<div id="page" class="showpage">
 		<div>
-			<header id="header">
+			<header id="header" style="position: fixed;z-index:1;">
 				<!-- <a href="{:U('Goods/categoryList')}" class="user_btn"></a> -->
 				<div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more111" class='top_menu'></div>
 				<!-- <span class="logo"></span> -->
 				<img style="height:40px;margin-top: 2px;" src="__PUBLIC__/images/logo.png" />
 			</header>
+            <p>a</p>
 
 			<div id="scrollimg" class="scrollimg">
 				<div class="hd">
@@ -43,7 +44,7 @@
 					</ul>
 				</div>
 			</div>
-			
+	
 			<script type="text/javascript">
 				TouchSlide({
 					slideCell: "#scrollimg",
@@ -55,7 +56,7 @@
 				});
 			</script>
 
-			<div class="goods_nav hid" id="menu">
+			<div class="goods_nav hid" id="menu" style="top: 65px">
 				<ul>
 					<li><a href="{:U('Home/Index/index')}"><span class="menu1"></span><i>首页</i></a></li>
 					<li><a href="{:U('Goods/categoryList')}"><span class="menu2"></span><i>分类</i></a></li>
