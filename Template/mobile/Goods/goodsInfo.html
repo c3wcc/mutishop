@@ -403,9 +403,10 @@ function changeAtt1(t) {
     }
 
     function get_goods_price() {
-      var goods_price = { $goods.shop_price }; // 商品起始价
-      var store_count = { $goods.store_count }; // 商品起始库存	
-      var spec_goods_price = { $spec_goods_price };  // 规格 对应 价格 库存表   //alert(spec_goods_price['28_100']['price']);	
+      var goods_price = "{$goods.shop_price}"; // 商品起始价
+      var store_count = "{$goods.store_count}"; // 商品起始库存	
+      var spec_goods_price = "{$spec_goods_price}";  // 规格 对应 价格 库存表   
+      //alert(spec_goods_price['28_100']['price']);	
       // 如果有属性选择项
       if (spec_goods_price != null) {
         goods_spec_arr = new Array();
