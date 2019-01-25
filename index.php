@@ -1,19 +1,4 @@
 <?php
-/**
- 
- * ====
- * 
- * 
- * --------
- * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和
- * 使用；不允许对程序代码以任何形式任何目的的再发布。
- * ====
- * $Author: IT宇宙人 $
- * $Id: index.php   2015-08-10  IT宇宙人 $
-*/ 
-
-// 应用入口文件
-// 应用入口文件
 if (extension_loaded('zlib')){
     ob_end_clean();
     ob_start('ob_gzhandler');
@@ -39,7 +24,10 @@ define('PLUGIN_PATH','plugins/');
 
 define('UPLOAD_PATH','Public/upload/'); // 编辑器图片上传路径
 define('TPSHOP_CACHE_TIME',1); // TPshop 缓存时间  31104000
-define('SITE_URL','https://'.$_SERVER['HTTP_HOST']); // 网站域名
+
+$http_type = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';  
+define('SITE_URL', $http_type.$_SERVER['HTTP_HOST']); // 网站域名
+
 define('DSHOPS_URL','https://www.o2odws.com'); // 网站域名
 define('DINNERS_URL','https://www.o2odws.com'); // 网站域名
 define('SCHOOL_URL','https://www.o2odws.com'); // 网站域名
