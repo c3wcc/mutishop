@@ -299,10 +299,10 @@ class CartLogic extends RelationModel
     {
 
         // 仿制灌水 1天只能下 50 单  // select * from `tp_order` where user_id = 1  and order_sn like '20151217%'
-        $order_count = M('Order')->where("user_id= $user_id and order_sn like '" . date('Ymd') . "%'")->count(); // 查找购物车商品总数量
-        if ($order_count >= 50) {
-            return array('status' => -9, 'msg' => '一天只能下50个订单', 'result' => '');
-        }
+        // $order_count = M('Order')->where("user_id= $user_id and order_sn like '" . date('Ymd') . "%'")->count(); // 查找购物车商品总数量
+        // if ($order_count >= 50) {
+        //     return array('status' => -9, 'msg' => '一天只能下50个订单', 'result' => '');
+        // }
 
         //加订单的 leader
         $leader = M('users')->where(array('user_id' => $user_id))->field('first_leader,second_leader,third_leader')->find();
