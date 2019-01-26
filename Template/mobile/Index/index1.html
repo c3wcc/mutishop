@@ -21,13 +21,15 @@
 	<link rel="stylesheet" href="../../../../index.css">
 	<script src="../../../../index.js"></script>
 </head>
+<style>
+
+</style>
 <body>
 	<div id="page" class="showpage">
 		<div>
 			<header id="header" style="position: fixed;z-index: 1">
 				<!-- <a href="{:U('Goods/categoryList')}" class="user_btn"></a> -->
 				<div href="javascript:void(0)" class='top_menu avatar-small'></div>
-				<div href="javascript:void(0)" class='close1 mask miaobian1' style="display: none"></div>
 				<!-- <span class="logo"></span> -->
 				<img style="height:40px;margin-top: 2px;" src="__PUBLIC__/images/logo.png" />
 				
@@ -60,26 +62,26 @@
 
  <div class="mask"></div>
    <div class="nav">
-	   <ul>
-		   <!--<li class="close mask">-->
-		   <!--<img src="__STATIC__/img/close.jpg" >-->
-		   <!--</li>-->
-		   <li>
-			   <a class="bg" href="#">首页</a>
-		   </li>
-		   <li>
-			   <a class="bg" href="{:U('Goods/categoryList')}">美食</a>
-		   </li>
-		   <li>
-			   <a class="bg" href="{:U('Cart/cart')}">游玩</a>
-		   </li>
-		   <li>
-			   <a class="bg" href="{:U('User/index')}">婚庆</a>
-		   </li>
-		   <li>
-			   <a class="bg" href="{:U('User/index')}">合作</a>
-		   </li>
-	   </ul>
+    <ul>
+      <!--<li class="close mask">-->
+        <!--<img src="__STATIC__/img/close.jpg" >-->
+      <!--</li>-->
+      <li>
+        <a class="bg" href="#">首页</a>
+      </li>
+      <li>
+        <a class="bg" href="{:U('Goods/categoryList')}">美食</a>
+      </li>
+      <li>
+        <a class="bg" href="{:U('Cart/cart')}">游玩</a>
+      </li>
+      <li>
+        <a class="bg" href="{:U('User/index')}">婚庆</a>
+      </li>
+      <li>
+        <a class="bg" href="{:U('User/index')}">合作</a>
+      </li>
+    </ul>
   </div>
 			<script>
 				function show_menu() {
@@ -202,22 +204,23 @@
 
 
 <!-- 滑动窗口 -->
-	<script type="text/javascript">
-        let btn = document.getElementsByClassName('avatar-small')[0],
-            mask = document.getElementsByClassName('mask')[0],
-            nav = document.getElementsByClassName('nav')[0];
+<script type="text/javascript">
+let btn = document.getElementsByClassName('avatar-small')[0],
+    mask = document.getElementsByClassName('mask')[0],
+    nav = document.getElementsByClassName('nav')[0];
+   
+btn.addEventListener('click', function () {
+  mask.style.display = 'block';
+  nav.style.right = 0;
+}, false);
 
-        btn.addEventListener('click', function () {
-            mask.style.display = 'block';
-            nav.style.right = 0;
-        }, false);
+mask.addEventListener('click', function () {
+  mask.style.display = 'none';
+  nav.style.right = '-7rem';
+}, false)
+	
 
-        mask.addEventListener('click', function () {
-            mask.style.display = 'none';
-            nav.style.right = '-7rem';
-        }, false)
-
-	</script>
+</script>
 
 
 

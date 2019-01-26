@@ -51,7 +51,19 @@ button {
 	background: url(../img/menu_new.png) no-repeat;
 	background-size:35px;
 }
-
+/*关闭按钮*/
+.close1 {
+	display:block;
+	float:right;
+	width:35px;
+	height:35px;
+	position:absolute;
+	top: 5px;
+	right:8px;
+	/* background-position:0 5 */
+	background: url(../img/close4.jpg) no-repeat;
+	background-size:35px;
+}
 /*首页搜索*/
 .index_search{ position: relative; width:100%; background: #fff; overflow:hidden}
 .index_search_mid{ width:80%; margin:auto; height:40px; position:relative;}
@@ -285,3 +297,99 @@ box-shadow: 0 0 1px #ccc; text-indent:-100px; overflow:hidden; }
 
 .floor_body2 ul li .btns{ position:absolute; display:block;right:5px;height:25px;width:25px;background: #f23; border-radius:50%; bottom:8px;}
 .floor_body2 ul li .btns img{ display:block; width:25px;height:25px; }
+/*去掉蓝色背景*/
+body{
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+a {
+	outline: none;
+	-moz-outline-style: none;
+}
+/*!*右边导航*!*/
+/*.close {*/
+	/*display:block;*/
+	/*!*float: right;*!*/
+	/*left: 45px;*/
+	/*top:0px;*/
+	/*width:35px;*/
+	/*height:35px;*/
+	/*position: relative;*/
+	/*top: 5px;*/
+	/*right:8px;*/
+	/*background-size:35px;*/
+/*}*/
+/*ul, li {*/
+	/*list-style: none;*/
+	/*padding: 0;*/
+	/*margin: 0;*/
+/*}*/
+
+/*.nav {*/
+	/*position: fixed;*/
+	/*z-index: 11;*/
+	/*right:  -7rem;*/
+	/*top: 0;*/
+	/*width: 7rem;*/
+	/*height: 100%;*/
+	/*background: #FFFFFF;*/
+/*}*/
+/*.nav {*/
+	/*transition: right linear .1s;*/
+/*}*/
+/*.nav a {*/
+	/*display: block;*/
+	/*padding: 1em 0;*/
+	/*!*  border-bottom: 1px solid #888;*!*/
+	/*font-size: 16px;*/
+	/*color: #191818;*/
+	/*text-align: center;*/
+/*}*/
+ul, li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.nav {
+	position: fixed;
+	z-index: 11;
+	right: -7rem;
+	top: 45px;
+	width: 7rem;
+	height: 100%;
+	background: #FFFFFF;;
+}
+.nav {
+	transition: right linear .1s;
+}
+.nav a {
+	display: block;
+	padding: 1em 0;
+
+	font-size: 16px;
+	color: #191818;;
+	text-align: center;
+}
+.bg:hover{
+	color: goldenrod;
+
+}
+.font1{
+	text-align: center;font-weight: bold;font-size: medium
+}
+.underline{
+	padding-bottom:7px; border-bottom:2px solid goldenrod
+}
+.miaobian{
+	display:inline-block;
+	width:47.391px;
+	height:47.391px;
+	border-radius:50%;
+	border:1px solid white;
+}
+.miaobian1{
+	display:inline-block;
+	width:35px;
+	height:35px;
+	border-radius:50%;
+	border:1px solid white;
+}
