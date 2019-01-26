@@ -61,8 +61,8 @@ button {
 	top: 10px;
 	right:8px;
 	/* background-position:0 5 */
-	background: url(../img/CLOSE.png) no-repeat;
-	background-size:20px;
+	background: url(../img/close1.png) no-repeat;
+	background-size:30px;
 }
 /*首页搜索*/
 .index_search{ position: relative; width:100%; background: #fff; overflow:hidden}
