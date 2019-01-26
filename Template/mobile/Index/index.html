@@ -209,11 +209,13 @@
 
         btn.addEventListener('click', function () {
             mask.style.display = 'block';
+            btn.style.display = 'none';
             nav.style.right = 0;
         }, false);
 
         mask.addEventListener('click', function () {
             mask.style.display = 'none';
+            btn.style.display = 'block';
             nav.style.right = '-7rem';
         }, false)
 
