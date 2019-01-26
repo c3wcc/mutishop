@@ -58,11 +58,11 @@ button {
 	width:35px;
 	height:35px;
 	position:absolute;
-	top: 5px;
+	top: 10px;
 	right:8px;
 	/* background-position:0 5 */
 	background: url(../img/CLOSE.png) no-repeat;
-	background-size:35px;
+	background-size:20px;
 }
 /*首页搜索*/
 .index_search{ position: relative; width:100%; background: #fff; overflow:hidden}
@@ -383,13 +383,6 @@ ul, li {
 	display:inline-block;
 	width:47.391px;
 	height:47.391px;
-	border-radius:50%;
-	border:1px solid white;
-}
-.miaobian1{
-	display:inline-block;
-	width:35px;
-	height:35px;
 	border-radius:50%;
 	border:1px solid white;
 }
