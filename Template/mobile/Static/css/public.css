@@ -5,6 +5,17 @@ input[type="button"],
 button {
 -webkit-appearance: none;
 }
+.mask-1{
+    display: none;
+    position: fixed;
+    top:0;
+    right: 0;
+    bottom: 0;
+    background: #000;
+    opacity: 0;
+    z-index: 10;
+    width:100%;
+}
 /*css初始值*/
 html, body, div, p, ul, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, form, input, select, button, textarea, iframe, table, th, td {margin: 0;padding: 0;list-style-type: none;}
 body {margin:0 auto;font-family: "微软雅黑", "宋体", Arial, Helvetica, sans-serif;font-size: 14px;line-height: 180%;color: #000000;padding:0px;min-width:300px;max-width:640px;}
@@ -167,7 +178,7 @@ div#loader { height: 25px; line-height: 25px; background: url(../images/flow/loa
 .get_more {width: 100%;height: 30px;display:block;text-align: center;}
 .get_more img {width: 16px;height: 16px;margin: 0 auto;}
 
-.scrollimg{position:relative; overflow:hidden; margin:0px auto; /* 设置焦点图最大宽度 */}
+.scrollimg{position:relative; overflow:hidden; margin:0px auto;padding-top:45px; /* 设置焦点图最大宽度 */}
 .scrollimg .hd{ position: absolute;bottom:0px;text-align: center;width: 100%;}
 .scrollimg .hd li{display: inline-block;width: .4em;height: .4em;margin: 0 .4em;-webkit-border-radius: .8em;-moz-border-radius: .8em;-ms-border-radius: .8em;-o-border-radius: .8em; border-radius: .8em;background: #FFF;filter: alpha(Opacity=60);opacity: .6;box-shadow: 0 0 1px #ccc; text-indent:-100px; overflow:hidden; }
 .scrollimg .hd li.on{ filter: alpha(Opacity=90);opacity: .9;background: #f8f8f8;box-shadow: 0 0 2px #ccc; }
